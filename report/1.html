@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name ="viewport" content ="width=device-width,initial-scale=1">
+        <title>pzmrzy | Leetcode Report</title>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/prism.css">
+				<script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+				<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+				<!--<script type="text/javascript" src="../js/elf.js"></script>-->
+        <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<a class="navbar-brand time" href="#">时间</a>
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode 题解</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Two Sum</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p><p>Given an array of integers, return <b>indices</b> of the two numbers such that they add up to a specific target.</p>
+
+<p>You may assume that each input would have <b><i>exactly</i></b> one solution.</p>
+
+<p>
+<b>Example:</b><br />
+<pre>
+Given nums = [2, 7, 11, 15], target = 9,
+
+Because nums[<b>0</b>] + nums[<b>1</b>] = 2 + 7 = 9,
+return [<b>0</b>, <b>1</b>].
+</pre>
+<b>Report:</b><br />
+<pre>
+  Check all pairs of numbers, if the sum of them is target then return indices. Complexity is <b>O(n<sup>2</sup>)</b>, where n = nums.size().
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-cpp">
+    class Solution {
+    public:
+        vector&lt;int&gt; twoSum(vector&lt;int&gt;& nums, int target) {
+            int l, r;
+            bool flag = false;
+            for (int i = 0; i &lt; nums.size(); i++){
+                for (int j = i + 1; j &lt; nums.size(); j++)
+                    if (nums[i] + nums[j] == target){
+                        l = i; r = j;
+                        flag = true;
+                        break;
+                    }
+                if (flag)
+                    break;
+            }
+            vector&lt;int&gt; result = {l + 1, r + 1};
+            return result;
+        }
+    };
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name ="viewport" content ="width=device-width,initial-scale=1">
-        <title>pzmrzy | Home</title>
+        <title>Zhiming Peng</title>
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 				<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
 				<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
@@ -15,42 +15,170 @@
 				<nav class="navbar navbar-inverse navbar-fixed-top">
 					<div class="container">
 						<div class="navbar-header">
-							<a class="navbar-brand time" href="#">时间</a>
+							<!-- <a class="navbar-brand time" href="#">时间</a> -->
 							<div class="nav navbar-nav"><li><a href="index.html" id="viewall">Home</a></li></div>
 							<div class="nav navbar-nav"><li><a href="leet.html" id="viewall">Leetcode 题解</a></li></div>
 						</div>
 					</div>
 				</nav>
 			</div>
-			<div><div dir="ltr"><font size="4">Brief Biograph</font></div></div>
+      <div><font size="3"><br /></font></div>
+      <div><font size="3"><br /></font></div>
+      <div><font size="3"><br /></font></div>
+
+      <div class="container">
+			<!-- <div><div dir="ltr"><font size="4">Brief Biograph</font></div></div> -->
+        <table class="table table-bordered">
+          <tbody >
+            <tr >
+              <td align="center" rowspan="3" width = "20%" border="0">	<img border="0" src="image/headfigure.jpg" style="width:70%" /></a></td>
+              <td ><div><font size="5"><b>Zhiming Peng</b></font></div></td>
+            </tr>
+
+            <tr>
+              <td ><font size="3">Email: zhimingp [at] usc [dot] edu</font></td>
+            </tr>
+
+            <tr>
+              <td >
+                <font size="3">Hello World! I'm Peng Zhiming (in Chinese: 彭智明). I’m currently a Master Student at University of Southern California(USC), major in computer science, general track.</font>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
 				<table cellspacing="0" class="sites-layout-hbox">
 					<tbody>
 						<tr>
 							<td>
 								<div dir="ltr">
 									<div style="text-align:left">
-										<div><font size="3"><b>Hello World!</b></font></div>
-										<div><font size="3"><br /></font></div>
-										<div><font size="3">I'm Peng Zhiming (in Chinese: 彭智明). I’m currently a Research Engineer in Singapore Management University (SMU) .</font></div>
-										<div><font size="3"><br /></font></div>
-										<div><font size="3">My research interest is Machine Learning, Computer Vision and Deep Learning.</font></div>
-										<div><font size="3"><br /></font></div>
-										<div><font size="3">I did my undergraduate at Zhejiang University (ZJU) with BE in Computer Science and Technology. I'm also a student from Chu Kochen Honors College Mixed Class.  I was an undergraduate member in Institute of Artificial Intelligence led by Assoc. Prof. Xiaogang Jin, working on Machine Learning and Complex Network. And I exchanged to SMU in my senior year  for my graduate thesis.</font></div>
-										<div><font size="3"><br /></font></div>
-										<div><font size="3">Click on the tags to know more about me!</font></div>
-										<div><font size="3"><br /></font></div>
-										<!--<div><font size="3">You can download my <a href="https://sites.google.com/site/pzmrzy/cv.pdf?attredirects=0">cv</a> here. (update on Nov/30/2015)</font></div>-->
-										<div><font size="3"><br /></font></div>
-										<!--<div><font size="3">For more information, please <a href="https://sites.google.com/site/pzmrzy/contact">contact me</a> freely.</font></div>-->
+                    <font size="4"><b>Short Bio</b></font>
+										<div><font size="3">I did my undergraduate at Zhejiang University (ZJU) with BE in Computer Science and Technology. I'm also a student from Chu Kochen Honors College Mixed Class.  I was an undergraduate member in Institute of Artificial Intelligence led by Assoc. Prof. Xiaogang Jin, working on Machine Learning and Complex Network. And I exchanged to Singapore Management University (SMU) in my senior year for my graduate thesis. After that I worked for SMU as a full-time research engineer.</font></div>
+                    <div><font size="3">You can download my <a href = "cv.pdf">CV</a> here.</font></div>
+                    <br/>
+
+                    <div><font size="4"><b>Publication</b></font></div>
+                    <div><font size="3">Click to show/hide abstract</font></div>
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                        <div class="panel-heading">
+				                  <a data-toggle="collapse" data-parent="#accordion"
+				                    href="#pub1">
+					                    <font size="3">Xiao Cheng, <b>Zhiming Peng</b>, Lingxiao Jiang, Hao Zhong, Haibo Yu, and Jianjun Zhao.<br/>Detecting Cross-Language Clones Without Intermediates.<br/>In Proc. 31th IEEE/ACM Conference on Automated Software Engineering (ASE 2016), (Short Paper), Singapore, September 3-7, 2016. (to appear)</font>
+				                  </a>
+		                    </div>
+		                    <div id="pub1" class="panel-collapse collapse">
+			                    <div class="panel-body">
+                            To attract more users on different platforms, many projects release their versions in multiple programming languages (\emph{e.g.}, Java and C\#).
+                            They typically have many code snippets that implement similar functionalities, \emph{i.e.}, cross-language clones.
+                            Programmers often need to track and modify cross-language clones consistently to maintain similar functionalities across different language implementations.
+                            In literature, researchers have proposed approaches to detect cross-language clones,
+                            mostly for languages that share a common intermediate language (such as the .NET language family) so that techniques for detecting single-language clones can be applied.
+                            As a result, those approaches cannot detect cross-language clones for many projects that are not implemented in a .NET language.
+                            To overcome the limitation, in this paper, we propose a novel approach, \emph{CLCMiner}, that detects cross-language clones automatically without the need of an intermediate language.
+                            Our approach mines such clones from revision histories, which reflect how programmers maintain cross-language clones in practice.
+                            We have implemented a prototype tool for our approach and conducted an evaluation on five open source projects that have versions in Java and C\#. The results show that \emph{CLCMiner} achieves high accuracy and point to promising future work.
+			                    </div>
+		                    </div>
+                      </li>
+                    </ul>
+
+                    <div><font size="4"><b>Working Experience</b></font></div>
+                    <ul class="list-group">
+                      <li class="list-group-item"><font size='3'>Research Engineer at Singapore Management University, Singapore, Aug. 2015 - Aug. 2016</font></li>
+                    </ul>
+
+                    <div><font size="4"><b>Project</b></font></div>
+                    <div><font size="3">Click to show/hide more details</font></div>
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                        <div class="panel-heading">
+                          <a data-toggle="collapse" data-parent="#accordion"
+                            href="#gradthesis">
+                              <font size="3"><b>Graduate Thesis:</b> The Analysis and Prediction of the Behavior in User Adopting Application Based on Real Social Network </font>
+                          </a>
+                        </div>
+                        <div id="gradthesis" class="panel-collapse collapse">
+                          <div class="panel-body">
+                            <b>基于真实网络对用户采取应用行为的分析与预测</b>
+                            <br/>
+                            <b>Advisor:</b> Assoc. Prof. Xiaogang Jin (ZJU), Assist. Prof. Youngsoo Kim (SMU)
+                            <br/>
+                            <b>Abstract:</b>
+                            The Analysis and Prediction of the Behavior in User Adopt Application Based on Real Social Network.Recently, behavioral diffusion is a core study area in Social Network. On social network site, users can add friends, while the behavior on these social network sites may be spread through their friend relations by some mechanisms. Past studies suggest that as long as there is a friend relationship between two users, the behavior will be effectively delivered with equal chance from one user to his friends. However, this information diffusion process may be affected by the attribute of users, the relation between friends, and the position at which user locates. In this research, I acquired the real social network site data, studied the behavior of user adopt application on this site, spread on the network. First I selected these data, then analyzed the attribute of users, their relation and their position on the network. Base on the analysis result, I built different model to predict the time of one user adopt the application.
+                            <br/>
+                            <b>Keywords:</b>　Social network, Behavior diffusion, Predict
+                            <br/>
+                            You can download <a href="https://sites.google.com/site/pzmrzy/thesis.zip?attredirects=0">thesis and ppt</a> here. (Language: Chinese)
+                          </div>
+                        </div>
+                      </li>
+
+                      <li class="list-group-item">
+                        <div class="panel-heading">
+                          <a data-toggle="collapse" data-parent="#accordion"
+                            href="#shengchuang">
+                              <font size="3"><b>Zhejiang Province Key Innovation Research Program: </b>A Healthy Application Base on Segmentation and Recognition for Cuisine</font>
+                          </a>
+                        </div>
+                        <div id="shengchuang" class="panel-collapse collapse">
+                          <div class="panel-body">
+                            <b>基于食物自动识别的健康饮食App</b>
+                            <br/>
+                            <b>Advisor:</b> Prof. Gang Pan
+                            <br/>
+                            <b>Collaborator:</b> Chengyang Liu
+                            <br/>
+                            You can download <a href = 'https://sites.google.com/site/pzmrzy/sc.zip?attredirects=0'>report and ppt</a> here. (Language: Chinese)
+                            <br/>
+                            You can download <a href = 'http://pan.baidu.com/s/1smmjc'>source code</a> here (Language: C++, Python, Android, PHP; 3rd party library: Opencv, Echart).
+                            <br/>
+                            You can download <a href = 'http://pan.baidu.com/s/1smmjc'>data</a> here.
+                            <br/>
+                            <a href = 'https://sites.google.com/site/pzmrzy/how-to-download.pdf?attredirects=0'>(How to download)</a>
+                          </div>
+                        </div>
+                      </li>
+
+                      <li class="list-group-item">
+                        <div class="panel-heading">
+                          <a data-toggle="collapse" data-parent="#accordion"
+                            href="#srtp">
+                              <font size="3"><b>Student Research Training Project: </b>Program Trading for Stock Market</font>
+                          </a>
+                        </div>
+                        <div id="srtp" class="panel-collapse collapse">
+                          <div class="panel-body">
+                            <b>股市中的程序化交易模拟</b>
+                            <br/>
+                            <b>Advisor:</b> Prof. Xiaohu Yang
+                            <br/>
+                            <b>Collaborator:</b> Boyu Zhang, Airui Zhang
+                            <br/>
+                            Compared program trading with traditional trading, and a demo with program trading algorithm.
+                            <br/>
+                            You can download <a href = 'https://sites.google.com/site/pzmrzy/pt.zip?attredirects=0'>report and ppt</a> here. (Language: Chinese)
+                            <br/>
+                            You can download <a href = 'https://sites.google.com/site/pzmrzy/stock.zip?attredirects=0'>source code</a> here. (Language: Python, 3rd party library: PyQt4)
+                            <br/>
+                            <a href = 'https://sites.google.com/site/pzmrzy/how-to-download.pdf?attredirects=0'>(How to download)</a>
+                          </div>
+                        </div>
+                      </li>
+
+                    </ul>
 									</div>
 							</div>
 						</td>
 						<td>
 							<div dir="ltr">
-								<div style="display:block;text-align:left;margin-right:auto">
+								<!-- <div style="display:block;text-align:left;margin-right:auto">
 									<img border="0" src="https://sites.google.com/site/pzmrzy/_/rsrc/1448959857905/home/t.jpg" style="width:30%" /></a>
-								</div><br /></div></td></tr></tbody>
+								</div><br /></div></td></tr></tbody> -->
 							</table><div class="sites-layout-tile sites-tile-name-footer sites-layout-empty-tile">
 								<div dir="ltr"><br /></div>
+        </div>
     </body>
 </html>

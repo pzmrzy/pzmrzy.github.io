@@ -1,23 +1,23 @@
-
+<script type="text/javascript" src="../js/prism.js"></script>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name ="viewport" content ="width=device-width,initial-scale=1">
-        <title>pzmrzy | Leetcode Report</title>
-        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../css/prism.css">
-				<script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
-				<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-				<!--<script type="text/javascript" src="../js/elf.js"></script>-->
-        <script type="text/javascript" src="../js/prism.js"></script>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+			<script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+			<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
     </head>
     <body>
 			<div>
 				<nav class="navbar navbar-inverse navbar-fixed-top">
 					<div class="container">
 						<div class="navbar-header">
-							<a class="navbar-brand time" href="#">时间</a>
 							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
 							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode 题解</a></li></div>
 						</div>
@@ -49,30 +49,23 @@ return [<b>0</b>, <b>1</b>].
 </pre>
 <b>Report:</b><br />
 <pre>
-  Check all pairs of numbers, if the sum of them is target then return indices. Complexity is <b>O(n<sup>2</sup>)</b>, where n = nums.size().
+use a dict store the number and position. if target - val in the dic, then it should be the result
 </pre>
 <b>Code:</b><br />
 <pre>
-  <code class="language-cpp">
-    class Solution {
-    public:
-        vector&lt;int&gt; twoSum(vector&lt;int&gt;& nums, int target) {
-            int l, r;
-            bool flag = false;
-            for (int i = 0; i &lt; nums.size(); i++){
-                for (int j = i + 1; j &lt; nums.size(); j++)
-                    if (nums[i] + nums[j] == target){
-                        l = i; r = j;
-                        flag = true;
-                        break;
-                    }
-                if (flag)
-                    break;
-            }
-            vector&lt;int&gt; result = {l + 1, r + 1};
-            return result;
-        }
-    };
+  <code class="language-python">
+    class Solution(object):
+        def twoSum(self, nums, target):
+            """
+            :type nums: List[int]
+            :type target: int
+            :rtype: List[int]
+            """
+            dic = {}
+            for i, v in enumerate(nums):
+                if target - v in dic:
+                    return [dic[target - v], i]
+                dic[v] = i
   </code>
 </pre>
 </p>

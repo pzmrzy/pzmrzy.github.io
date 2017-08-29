@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Implement Stack using Queues</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Using queues to implement stack</p>
+
+<b>Report:</b><br />
+<pre>
+We have 2 queues, q1 and q1. When do push, append the number into q1, when do pop or top, if q1 have only one element, just return it. Or, we pop all the element from q1 to q2, leave one in q1, this will be the ewsult, then exchange q1 and q2. For top, we should append the last number in q1 to q2 before exchange.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class MyStack(object):
+        def __init__(self):
+            """
+            Initialize your data structure here.
+            """
+            self.q1 = []
+            self.q2 = []
+
+        def push(self, x):
+            """
+            Push element x onto stack.
+            :type x: int
+            :rtype: void
+            """
+            self.q1.append(x)
+
+        def pop(self):
+            """
+            Removes the element on top of the stack and returns that element.
+            :rtype: int
+            """
+            if len(self.q1) == 1:
+                return self.q1.pop()
+            while len(self.q1) > 1:
+                p = self.q1.pop(0)
+                self.q2.append(p)
+            self.q1, self.q2 = self.q2, self.q1
+            res = self.q2[0]
+            self.q2 = []
+            return res
+
+        def top(self):
+            """
+            Get the top element.
+            :rtype: int
+            """
+            if len(self.q1) == 1:
+                return self.q1[0]
+            while len(self.q1) > 1:
+                p = self.q1.pop(0)
+                self.q2.append(p)
+            res = self.q1[0]
+            self.q2.append(self.q1.pop(0))
+            self.q1, self.q2 = self.q2, self.q1
+            return res
+
+        def empty(self):
+            """
+            Returns whether the stack is empty.
+            :rtype: bool
+            """
+            return len(self.q1) == 0
+
+
+# Your MyStack object will be instantiated and called as such:
+# obj = MyStack()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.empty()
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

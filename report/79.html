@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Word Search</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Find a word on the board</p>
+
+<b>Report:</b><br />
+<pre>
+Record a boolean array, which cell has been visited, use this array do backtracking for four directions.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def dfs(self, i, j, tstr):
+            if len(tstr) == 0:
+                return True
+            if i - 1 >= 0 and self.flag[i-1][j] and self.board[i-1][j] == tstr[0]:
+                self.flag[i-1][j] = False
+                if self.dfs(i - 1, j, tstr[1:]):
+                    self.flag[i-1][j] = True
+                    return True
+                self.flag[i-1][j] = True
+            if i + 1 < self.m and self.flag[i+1][j] and self.board[i+1][j] == tstr[0]:
+                self.flag[i+1][j] = False
+                if self.dfs(i + 1, j, tstr[1:]):
+                    self.flag[i+1][j] = True
+                    return True
+                self.flag[i+1][j] = True
+            if j - 1 >= 0 and self.flag[i][j-1] and self.board[i][j-1] == tstr[0]:
+                self.flag[i][j-1] = False
+                if self.dfs(i, j - 1, tstr[1:]):
+                    self.flag[i][j-1] = True
+                    return True
+                self.flag[i][j-1] = True
+            if j + 1 < self.n and self.flag[i][j+1] and self.board[i][j+1] == tstr[0]:
+                self.flag[i][j+1] = False
+                if self.dfs(i, j + 1, tstr[1:]):
+                    self.flag[i][j+1] = True
+                    return True
+                self.flag[i][j+1] = True
+            return False
+
+        def exist(self, board, word):
+            """
+            :type board: List[List[str]]
+            :type word: str
+            :rtype: bool
+            """
+            self.m = len(board)
+            self.n = len(board[0])
+            self.board = board
+            self.flag = [[True for i in range(self.n)] for j in range(self.m)]
+            for i in range(self.m):
+                for j in range(self.n):
+                    if board[i][j] == word[0]:
+                        self.flag[i][j] = False
+                        if self.dfs(i, j, word[1:]):
+                            return True
+                        self.flag[i][j] = True
+            return False
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

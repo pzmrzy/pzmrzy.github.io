@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Different Ways to Add Parentheses</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Given a string of numbers and operators, return all possible results from computing all the different possible ways to group numbers and operators. The valid operators are +, - and *.</p>
+
+<b>Report:</b><br />
+<pre>
+Split the input into two parts, when op is '+-*', recursively compute the two parts. Then combine them with the op.
+We can use a dictionary to store the result of part already be caculated.
+2*3-4*5 ->  (2)*(3-4*5) ->  (2)*[(3)-(4*5)]
+                        ->  (2)*[(3-4)*(5)]
+        ->  (2*3)-(4*5)
+        ->  (2*3-4)*(5) ->  [(2)*(3-4)]*(5)
+                        ->  [(2*3)-(4)]*(5)
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        dic = {}
+        def cal(self, x, y, op):
+            if op == '+':
+                return x + y
+            elif op == '-':
+                return x - y
+            else:
+                return x * y
+
+        def diffWaysToCompute(self, input):
+            """
+            :type input: str
+            :rtype: List[int]
+            """
+            if input.isdigit():
+                return [int(input)]
+            res = []
+            for i in range(len(input)):
+                if input[i] in '+-*':
+                    left = self.dic[input[:i]] if input[:i] in self.dic else self.diffWaysToCompute(input[:i])
+                    right = self.dic[input[i + 1:]] if input[i + 1: ] in self.dic else self.diffWaysToCompute(input[i + 1:])
+                    for x in left:
+                        for y in right:
+                            res.append(self.cal(x, y, input[i]))
+            self.dic[input] = res
+            return res
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

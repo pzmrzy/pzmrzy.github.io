@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Longest Absolute File Path</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Given an encoded string, return it's decoded string.</p>
+
+<b>Report:</b><br />
+<pre>
+solve the problem recursively, record the level. [ -> level + 1, ] -> level -1, if ] and level = 0 -> return
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def decodeString(self, s):
+            """
+            :type s: str
+            :rtype: str
+            """
+            def decode(ind):
+                level = num = 0
+                ss = ''
+                while ind < len(s):
+                    if s[ind] == '[':
+                        level += 1
+                        a, ind = decode(ind + 1)
+                        ss += a * num
+                        num = 0
+                    elif s[ind] == ']':
+                        if level > 0:
+                            level -= 1
+                        else:
+                            return ss, ind - 1
+                    elif s[ind].isdigit():
+                        num *= 10
+                        num += int(s[ind])
+                    else:
+                        ss += s[ind]
+                    ind += 1
+                return ss, ind
+            return decode(0)[0]
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

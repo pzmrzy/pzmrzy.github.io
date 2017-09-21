@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Longest Absolute File Path</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Given an m x n matrix of non-negative integers representing the height of each unit cell in a continent, Find the list of grid coordinates where water can flow to both the Pacific and Atlantic ocean.</p>
+
+<b>Report:</b><br />
+<pre>
+Do two dfs from Pacific and Atlantic, the intersection of the cell is result. Put the cell on the edge of board in initial queue.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def dfs(self, matrix, q):
+            m = len(matrix)
+            n = len(matrix[0])
+            ret = set([])
+            while len(q) > 0:
+                i, j = q.pop()
+                ret.add((i, j))
+                height = matrix[i][j]
+                if i > 0 and matrix[i - 1][j] >= height:
+                    if (i - 1, j) not in ret:
+                        q.append((i - 1, j))
+                        ret.add((i - 1, j))
+                if j > 0 and matrix[i][j - 1] >= height:
+                    if (i, j - 1) not in ret:
+                        q.append((i, j - 1))
+                        ret.add((i, j - 1))
+                if i < m - 1 and matrix[i + 1][j] >= height:
+                    if (i + 1, j) not in ret:
+                        q.append((i + 1, j))
+                        ret.add((i + 1, j))
+                if j < n - 1 and matrix[i][j + 1] >= height:
+                    if (i, j + 1) not in ret:
+                        q.append((i, j + 1))
+                        ret.add((i, j + 1))
+            return ret
+
+        def pacificAtlantic(self, matrix):
+            """
+            :type matrix: List[List[int]]
+            :rtype: List[List[int]]
+            """
+            m = len(matrix)
+            if m == 0:
+                return []
+            n = len(matrix[0])
+            q = []
+            for i in range(m):
+                q.append((i, 0))
+            for i in range(n):
+                q.append((0, i))
+            pac = self.dfs(matrix, q)
+            q = []
+            for i in range(m):
+                q.append((i, n - 1))
+            for i in range(n):
+                q.append((m - 1, i))
+            atl = self.dfs(matrix, q)
+
+            ans = pac.intersection(atl)
+            return [list(x) for x in ans]
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

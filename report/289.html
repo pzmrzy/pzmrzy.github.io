@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Game of Life</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Any live cell with fewer than two live neighbors dies, as if caused by under-population.<br/>
+Any live cell with two or three live neighbors lives on to the next generation.<br/>
+Any live cell with more than three live neighbors dies, as if by over-population..<br/>
+Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.</p>
+<b>Report:</b><br />
+<pre>
+without extra space, we can store current status and future status in same cell.
+00: die -> die, 10: die -> live, 01: live -> die, 11: live -> live
+After finish the board, divide by two for each cells
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def gameOfLife(self, board):
+            """
+            :type board: List[List[int]]
+            :rtype: void Do not return anything, modify board in-place instead.
+            """
+            m = len(board)
+            n = len(board[0])
+            d = [(1, 0), (-1, 0), (0, 1), (0, -1), (-1, -1), (-1, 1), (1, -1), (1, 1)]
+            for i in range(m):
+                for j in range(n):
+                    live = 0
+                    for tx, ty in d:
+                        x, y = i + tx, j + ty
+                        if x < 0 or x == m or y < 0 or y == n:
+                            continue
+                        if board[x][y] & 1:
+                            live += 1
+                    if board[i][j] == 0:
+                        if live == 3:
+                            board[i][j] = 2
+                    else:
+                        if 2 <= live <= 3:
+                            board[i][j] = 3
+                        else:
+                            board[i][j] = 1
+            for i in range(m):
+                for j in range(n):
+                    board[i][j] >>= 1
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

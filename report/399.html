@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Evaluate Division</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Equations are given in the format A / B = k, where A and B are variables represented as strings, and k is a real number (floating point number). Given some queries, return the answers. If the answer does not exist, return -1.0.</p>
+
+<b>Report:</b><br />
+<pre>
+convert the problem to a graph, x / y = v => x to y with weight v and y to x with weight 1/v
+For each array do dfs, here distance should use * not +
+first check whether two variable are same or not appear in the equations.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+from collections import defaultdict
+    class Solution(object):
+        def calcEquation(self, equations, values, queries):
+            """
+            :type equations: List[List[str]]
+            :type values: List[float]
+            :type queries: List[List[str]]
+            :rtype: List[float]
+            """
+            dic = defaultdict(list)
+            for i in range(len(equations)):
+                x, y = equations[i]
+                v = values[i]
+                dic[x].append((y, v))
+                dic[y].append((x, 1.0 / v))
+            res = []
+            for x, y in queries:
+                if x not in dic or y not in dic:
+                    res.append(-1.0)
+                    continue
+                if x == y:
+                    res.append(1.0)
+                    continue
+                q = [(x, 1)]
+                visit = {x}
+                flag = False
+                while len(q) > 0:
+                    now, dis = q.pop()
+                    for t, td in dic[now]:
+                        if t not in visit:
+                            if t == y:
+                                res.append(dis * td)
+                                flag = True
+                            else:
+                                q.append((t, dis * td))
+                                visit.add(t)
+                    if flag:
+                        break
+                else:
+                    res.append(-1.0)
+            return res
+
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Peeking Iterator</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Given an Iterator class interface with methods: next() and hasNext(), design and implement a PeekingIterator that support the peek() operation -- it essentially peek() at the element that will be returned by the next call to next().</p>
+
+<b>Report:</b><br />
+<pre>
+record the peek number.
+peek(): return the peek number
+next(): return peek number, and update peek number by iteration.next() or None
+hasNext(): return peek number is not None
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    # Below is the interface for Iterator, which is already defined for you.
+    #
+    # class Iterator(object):
+    #     def __init__(self, nums):
+    #         """
+    #         Initializes an iterator object to the beginning of a list.
+    #         :type nums: List[int]
+    #         """
+    #
+    #     def hasNext(self):
+    #         """
+    #         Returns true if the iteration has more elements.
+    #         :rtype: bool
+    #         """
+    #
+    #     def next(self):
+    #         """
+    #         Returns the next element in the iteration.
+    #         :rtype: int
+    #         """
+
+    class PeekingIterator(object):
+        def __init__(self, iterator):
+            """
+            Initialize your data structure here.
+            :type iterator: Iterator
+            """
+
+
+        def peek(self):
+            """
+            Returns the next element in the iteration without advancing the iterator.
+            :rtype: int
+            """
+
+
+        def next(self):
+            """
+            :rtype: int
+            """
+
+
+        def hasNext(self):
+            """
+            :rtype: bool
+            """
+
+
+    # Your PeekingIterator object will be instantiated and called as such:
+    # iter = PeekingIterator(Iterator(nums))
+    # while iter.hasNext():
+    #     val = iter.peek()   # Get the next element but not advance the iterator.
+    #     iter.next()         # Should return the same value as [val].
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

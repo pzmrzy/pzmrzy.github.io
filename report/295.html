@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>ind Median from Data Stream</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value. So the median is the mean of the two middle value.</p>
+
+<b>Report:</b><br />
+<pre>
+Use a small queue and large queue. the number in small queue us negetive.
+when do add, if the length same, push the number in small queue then pop a element, insert to large queue. else just push to large queue
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class MedianFinder(object):
+
+        def __init__(self):
+            """
+            initialize your data structure here.
+            """
+            self.small = []
+            self.large = []
+
+        def addNum(self, num):
+            """
+            :type num: int
+            :rtype: void
+            """
+            if len(self.small) == len(self.large):
+                heapq.heappush(self.large, -heapq.heappushpop(self.small, -num))
+            else:
+                heapq.heappush(self.small, -heapq.heappushpop(self.large, num))
+
+        def findMedian(self):
+            """
+            :rtype: float
+            """
+            if len(self.small) == len(self.large):
+                return (-self.small[0] + self.large[0]) / 2.0
+            else:
+                return self.large[0]
+
+
+    # Your MedianFinder object will be instantiated and called as such:
+    # obj = MedianFinder()
+    # obj.addNum(num)
+    # param_2 = obj.findMedian()
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

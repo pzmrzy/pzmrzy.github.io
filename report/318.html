@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Maximum Product of Word Lengths</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Given a string array words, find the maximum value of length(word[i]) * length(word[j]) where the two words do not share common letters. You may assume that each word will contain only lower case letters. If no such two words exist, return 0.</p>
+
+<b>Report:</b><br />
+<pre>
+covert the word to bits by 1 << ord(c) - 97, store words in a dictionary, key is bits, value is the length
+for two bits, bits1 and bits2, if bits1 & bits2 is zero, means they don't share same letter. then update the result.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+from collections import defaultdict
+    class Solution(object):
+        def maxProduct(self, words):
+            """
+            :type words: List[str]
+            :rtype: int
+            """
+            dic = defaultdict(int)
+            for w in words:
+                mask = 0
+                for c in w:
+                    mask |= 1 << (ord(c) - 97)
+                dic[mask] = max(dic[mask], len(w))
+            return max([dic[x] * dic[y] for x in dic for y in dic if not x & y] + [0])
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

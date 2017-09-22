@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Non-decreasing Array</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Given an array with n integers, your task is to check if it could become non-decreasing by modifying at most 1 element.</p>
+
+<b>Report:</b><br />
+<pre>
+Do twice from start and from end. if a number is not decrease, modify it to the small/large number and keep non decrease.
+can only modify once.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def checkUp(self, nums):
+            n = len(nums)
+            flag = 0
+            for i in range(n - 1):
+                if nums[i] <= nums[i + 1]:
+                    continue
+                else:
+                    if flag == 1:
+                        return False
+                    nums[i + 1] = nums[i]
+                    flag = 1
+            return True
+        def checkDown(self, nums):
+            """
+            :type nums: List[int]
+            :rtype: bool
+            """
+            n = len(nums)
+            flag = 0
+            for i in range(n - 2, -1, -1):
+                if nums[i] <= nums[i + 1]:
+                    continue
+                else:
+                    if flag == 1:
+                        return False
+                    nums[i] = nums[i + 1]
+                    flag = 1
+            return True
+
+        def checkPossibility(self, nums):
+            """
+            :type nums: List[int]
+            :rtype: bool
+            """
+            nums1 = nums[:]
+            return self.checkUp(nums) or self.checkDown(nums1)
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

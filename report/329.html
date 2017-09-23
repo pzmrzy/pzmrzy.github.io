@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Longest Increasing Path in a Matrix</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Given an integer matrix, find the length of the longest increasing path.</p>
+
+<b>Report:</b><br />
+<pre>
+dp memorization. initial array with -1.
+dp[i][j] = 1 + max (dp[i][j - 1] if num[i][j] > num[i][j - 1]
+                    dp[i - 1][j] if num[i][j] > num[i - 1][j]
+                    dp[i][j + 1] if num[i][j] > num[i][j + 1]
+                    dp[i + 1][j] if num[i][j] > num[i + 1][j])
+result is max(dp)
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def longestIncreasingPath(self, matrix):
+            """
+            :type matrix: List[List[int]]
+            :rtype: int
+            """
+            def dp(x, y):
+                if data[x][y] == -1:
+                    val = matrix[x][y]
+                    data[x][y] = 1 + max(
+                        dp(x - 1, y) if x > 0 and val > matrix[x - 1][y] else 0,
+                        dp(x + 1, y) if x < m - 1 and val > matrix[x + 1][y] else 0,
+                        dp(x, y - 1) if y > 0 and val > matrix[x][y - 1] else 0,
+                        dp(x, y + 1) if y < n - 1 and val > matrix[x][y + 1] else 0)
+                return data[x][y]
+
+            m = len(matrix)
+            if m == 0:
+                return 0
+            n = len(matrix[0])
+            if n == 0:
+                return 0
+            data = [[-1] * n for i in range(m)]
+            return max(dp(x, y) for x in range(m) for y in range(n))
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

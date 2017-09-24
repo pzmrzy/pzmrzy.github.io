@@ -25,7 +25,7 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Text Justification</h3>
+        <h3 align = 'middle'>Longest Substring with At Most K Distinct Characters</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
@@ -34,37 +34,33 @@
         <div class="row">
           <div class="col-md-12">
             <div class="question-content">
-              <p>Spread words in a line evenly</p>
+              <p>Given a string, find the length of the longest substring T that contains at most k distinct characters.</p>
 
 <b>Report:</b><br />
 <pre>
-Recode the words to be split, if the total lenth plus greater than length, calculate the gap, for extra space, add one to first words. Then join all the words by gap. For final line, the gap should be 1.
+Always put the character c and its location i in the dictionary d.
+If the sliding window contains less than or equal to k distinct characters, update result
+Otherwise, we need to remove a character from the sliding window.Because the values in d represents the rightmost location of each character in the sliding window, in order to find the longest substring T, we need to locate the smallest location, and remove it from the dictionary, and then record the return value.
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
     class Solution(object):
-        def fullJustify(self, words, maxWidth):
+        def lengthOfLongestSubstringKDistinct(self, s, k):
             """
-            :type words: List[str]
-            :type maxWidth: int
-            :rtype: List[str]
+            :type s: str
+            :type k: int
+            :rtype: int
             """
-            res, cur, numLetter = [], [], 0
-            for w in words:
-                if numLetter + len(w) + len(cur) > maxWidth:
-                    if len(cur) == 1:
-                        res.append(cur[0] + ' ' * (maxWidth - numLetter))
-                    else:
-                        space = maxWidth - numLetter
-                        gap, extra = divmod(space, len(cur) - 1)
-                        for i in range(extra):
-                            cur[i] += ' '
-                        res.append((' ' * gap).join(cur))
-                    cur, numLetter = [], 0
-                cur.append(w)
-                numLetter += len(w)
-            res.append(' '.join(cur) + ' ' * (maxWidth - numLetter - len(cur) + 1))
+            dic = {}
+            res = low = 0
+            for i, c in enumerate(s):
+                dic[c] = i
+                if len(dic) > k:
+                    low = min(dic.values())
+                    del dic[s[low]]
+                    low += 1
+                res = max(res, i - low + 1)
             return res
   </code>
 </pre>

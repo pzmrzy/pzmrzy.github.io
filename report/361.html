@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Bomb Enemy</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Given a 2D grid, each cell is either a wall 'W', an enemy 'E' or empty '0' (the number zero), return the maximum enemies you can kill using one bomb.</p>
+
+<b>Report:</b><br />
+<pre>
+Use for arrays to store how many accumulate enemey can be killed from four directions. then summary and choose the max one.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def maxKilledEnemies(self, grid):
+            """
+            :type grid: List[List[str]]
+            :rtype: int
+            """
+            m = len(grid)
+            if m == 0:
+                return 0
+            n = len(grid[0])
+            v1 = [[0] * n for _ in range(m)]
+            v2 = [[0] * n for _ in range(m)]
+            v3 = [[0] * n for _ in range(m)]
+            v4 = [[0] * n for _ in range(m)]
+            for i in range(m):
+                for j in range(n):
+                    t = 0 if j == 0 or grid[i][j] == 'W' else v1[i][j - 1]
+                    v1[i][j] = t + 1 if grid[i][j] == 'E' else t
+                for j in range(n - 1, -1, -1):
+                    t = 0 if j == n - 1 or grid[i][j] == 'W' else v2[i][j + 1]
+                    v2[i][j] = t + 1 if grid[i][j] == 'E' else t
+            for j in range(n):
+                for i in range(m):
+                    t = 0 if i == 0 or grid[i][j] == 'W' else v3[i - 1][j]
+                    v3[i][j] = t + 1 if grid[i][j] == 'E' else t
+                for i in range(m - 1, -1, -1):
+                    t = 0 if i == m - 1 or grid[i][j] == 'W' else v4[i + 1][j]
+                    v4[i][j] = t + 1 if grid[i][j] == 'E' else t
+            res = 0
+            for i in range(m):
+                for j in range(n):
+                    if grid[i][j] == '0':
+                        res = max(res, v1[i][j] + v2[i][j] + v3[i][j] + v4[i][j])
+            return res
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

@@ -25,7 +25,7 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Text Justification</h3>
+        <h3 align = 'middle'>Moving Average from Data Stream</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
@@ -34,38 +34,42 @@
         <div class="row">
           <div class="col-md-12">
             <div class="question-content">
-              <p>Spread words in a line evenly</p>
+              <p>Given a stream of integers and a window size, calculate the moving average of all integers in the sliding window.</p>
 
 <b>Report:</b><br />
 <pre>
-Recode the words to be split, if the total lenth plus greater than length, calculate the gap, for extra space, add one to first words. Then join all the words by gap. For final line, the gap should be 1.
+store the numbers and their sum, if a new number in, then length large than size, then pop the left one, and update sum.
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
-    class Solution(object):
-        def fullJustify(self, words, maxWidth):
+    class MovingAverage(object):
+
+        def __init__(self, size):
             """
-            :type words: List[str]
-            :type maxWidth: int
-            :rtype: List[str]
+            Initialize your data structure here.
+            :type size: int
             """
-            res, cur, numLetter = [], [], 0
-            for w in words:
-                if numLetter + len(w) + len(cur) > maxWidth:
-                    if len(cur) == 1:
-                        res.append(cur[0] + ' ' * (maxWidth - numLetter))
-                    else:
-                        space = maxWidth - numLetter
-                        gap, extra = divmod(space, len(cur) - 1)
-                        for i in range(extra):
-                            cur[i] += ' '
-                        res.append((' ' * gap).join(cur))
-                    cur, numLetter = [], 0
-                cur.append(w)
-                numLetter += len(w)
-            res.append(' '.join(cur) + ' ' * (maxWidth - numLetter - len(cur) + 1))
-            return res
+            self.size = size
+            self.window = []
+            self.sum = 0
+
+        def next(self, val):
+            """
+            :type val: int
+            :rtype: float
+            """
+            self.sum += val
+            self.window.append(val)
+            l = len(self.window)
+            if l > self.size:
+                self.sum -= self.window.pop(0)
+            return self.sum / float(min(l, self.size))
+
+
+    # Your MovingAverage object will be instantiated and called as such:
+    # obj = MovingAverage(size)
+    # param_1 = obj.next(val)
   </code>
 </pre>
 </p>

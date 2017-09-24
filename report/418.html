@@ -25,7 +25,7 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Text Justification</h3>
+        <h3 align = 'middle'>Sentence Screen Fitting</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
@@ -34,38 +34,35 @@
         <div class="row">
           <div class="col-md-12">
             <div class="question-content">
-              <p>Spread words in a line evenly</p>
+              <p>Given a rows x cols screen and a sentence represented by a list of non-empty words, find how many times the given sentence can be fitted on the screen.</p>
 
 <b>Report:</b><br />
 <pre>
-Recode the words to be split, if the total lenth plus greater than length, calculate the gap, for extra space, add one to first words. Then join all the words by gap. For final line, the gap should be 1.
+first join all the words together by space(include last one). st record the total length of all sentences(repeat many times).
+each time st + total length of one sentence, if st % len is space, start + 1, else, start - 1 until it is space.
+the result is total length / one sentence length
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
     class Solution(object):
-        def fullJustify(self, words, maxWidth):
+        def wordsTyping(self, sentence, rows, cols):
             """
-            :type words: List[str]
-            :type maxWidth: int
-            :rtype: List[str]
+            :type sentence: List[str]
+            :type rows: int
+            :type cols: int
+            :rtype: int
             """
-            res, cur, numLetter = [], [], 0
-            for w in words:
-                if numLetter + len(w) + len(cur) > maxWidth:
-                    if len(cur) == 1:
-                        res.append(cur[0] + ' ' * (maxWidth - numLetter))
-                    else:
-                        space = maxWidth - numLetter
-                        gap, extra = divmod(space, len(cur) - 1)
-                        for i in range(extra):
-                            cur[i] += ' '
-                        res.append((' ' * gap).join(cur))
-                    cur, numLetter = [], 0
-                cur.append(w)
-                numLetter += len(w)
-            res.append(' '.join(cur) + ' ' * (maxWidth - numLetter - len(cur) + 1))
-            return res
+            s = ' '.join(sentence) + ' '
+            st, l = 0, len(s)
+            for i in range(rows):
+                st += cols
+                if s[st % l] == ' ':
+                    st += 1
+                else:
+                    while st > 0 and s[(st - 1) % l] != ' ':
+                        st -= 1
+            return st / l
   </code>
 </pre>
 </p>

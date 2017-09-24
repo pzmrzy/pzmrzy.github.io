@@ -25,7 +25,7 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Sliding Window Maximum</h3>
+        <h3 align = 'middle'>Lowest Common Ancestor of a Binary Search Tree</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
@@ -34,34 +34,51 @@
         <div class="row">
           <div class="col-md-12">
             <div class="question-content">
-              <p>Get the maximium value of a sliding windows in width k</p>
+              <p>find the lowest common ancestor (LCA) of two given nodes in the BST.</p>
 
 <b>Report:</b><br />
 <pre>
-Use a deque to store the position, and keep number correspond to the position in deque decreasing. If a position out of the sliding window, just pop it. For new number, pop all the number less than it, and append it to the right. The max value of a sliding window is the first corrspond number in deque.
+There are mainly 4 sitautions:
+  root(==p,q)
+    /           return root
+  q,p
+  root
+  /  \          return root
+p(q)     q(p)
+    root
+   /
+  x         return lowestCommonAncestor(root.left, p, q)
+/  \
+p  q
+root
+  \
+   x         return lowestCommonAncestor(root.right, p, q)
+ /  \
+ p  q
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
-    from collections import deque
-    class Solution(object):
-        def maxSlidingWindow(self, nums, k):
-            """
-            :type nums: List[int]
-            :type k: int
-            :rtype: List[int]
-            """
-            n = len(nums)
-            res = []
-            dq = deque()
-            for i in range(n):
-                while len(dq) > 0 and dq[0] < i - k + 1:
-                    dq.popleft()
-                while len(dq) > 0 and nums[dq[-1]] < nums[i]:
-                    dq.pop()
-                dq.append(i)
-                res.append(nums[dq[0]])
-            return res[k - 1:]
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        if p.val < root.val and q.val < root.val:
+            return self.lowestCommonAncestor(root.left, p, q)
+        elif p.val > root.val and q.val > root.val:
+            return self.lowestCommonAncestor(root.right, p, q)
+        return root
   </code>
 </pre>
 </p>

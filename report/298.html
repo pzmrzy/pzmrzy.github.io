@@ -25,7 +25,7 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Text Justification</h3>
+        <h3 align = 'middle'>Binary Tree Longest Consecutive Sequence</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
@@ -34,38 +34,47 @@
         <div class="row">
           <div class="col-md-12">
             <div class="question-content">
-              <p>Spread words in a line evenly</p>
+              <p>Given a binary tree, find the length of the longest consecutive sequence path.</p>
 
 <b>Report:</b><br />
 <pre>
-Recode the words to be split, if the total lenth plus greater than length, calculate the gap, for extra space, add one to first words. Then join all the words by gap. For final line, the gap should be 1.
+when do traversal, record the current length, and update result for each node. For chile node, if current val + 1 = child val, length + 1, else length = 1
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
+    # Definition for a binary tree node.
+    # class TreeNode(object):
+    #     def __init__(self, x):
+    #         self.val = x
+    #         self.left = None
+    #         self.right = None
+
     class Solution(object):
-        def fullJustify(self, words, maxWidth):
+        def check(self, root, num):
+            if num > self.res:
+                self.res = num
+            if root.left != None:
+                if root.val + 1 == root.left.val:
+                    self.check(root.left, num + 1)
+                else:
+                    self.check(root.left, 1)
+            if root.right != None:
+                if root.val + 1 == root.right.val:
+                    self.check(root.right, num + 1)
+                else:
+                    self.check(root.right, 1)
+
+        def longestConsecutive(self, root):
             """
-            :type words: List[str]
-            :type maxWidth: int
-            :rtype: List[str]
+            :type root: TreeNode
+            :rtype: int
             """
-            res, cur, numLetter = [], [], 0
-            for w in words:
-                if numLetter + len(w) + len(cur) > maxWidth:
-                    if len(cur) == 1:
-                        res.append(cur[0] + ' ' * (maxWidth - numLetter))
-                    else:
-                        space = maxWidth - numLetter
-                        gap, extra = divmod(space, len(cur) - 1)
-                        for i in range(extra):
-                            cur[i] += ' '
-                        res.append((' ' * gap).join(cur))
-                    cur, numLetter = [], 0
-                cur.append(w)
-                numLetter += len(w)
-            res.append(' '.join(cur) + ' ' * (maxWidth - numLetter - len(cur) + 1))
-            return res
+            if root == None:
+                return 0
+            self.res = 0
+            self.check(root, 1)
+            return self.res
   </code>
 </pre>
 </p>

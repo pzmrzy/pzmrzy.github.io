@@ -6,7 +6,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>pzmrzy | Leetcode Report</title>
       <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
       <link rel="stylesheet" href="../css/prism.css">
       <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
       <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
@@ -25,7 +25,7 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Text Justification</h3>
+        <h3 align = 'middle'>Valid Parentheses</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
@@ -34,38 +34,30 @@
         <div class="row">
           <div class="col-md-12">
             <div class="question-content">
-              <p>Spread words in a line evenly</p>
-
+              <p>Setermine if the input string is valid parentheses</p>
 <b>Report:</b><br />
 <pre>
-Recode the words to be split, if the total lenth plus greater than length, calculate the gap, for extra space, add one to first words. Then join all the words by gap. For final line, the gap should be 1.
+Use a stack to store all the left, if a right come, pop the stack and check whether they are valid. After finish all the input, the stack should be empty.
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
-    class Solution(object):
-        def fullJustify(self, words, maxWidth):
-            """
-            :type words: List[str]
-            :type maxWidth: int
-            :rtype: List[str]
-            """
-            res, cur, numLetter = [], [], 0
-            for w in words:
-                if numLetter + len(w) + len(cur) > maxWidth:
-                    if len(cur) == 1:
-                        res.append(cur[0] + ' ' * (maxWidth - numLetter))
-                    else:
-                        space = maxWidth - numLetter
-                        gap, extra = divmod(space, len(cur) - 1)
-                        for i in range(extra):
-                            cur[i] += ' '
-                        res.append((' ' * gap).join(cur))
-                    cur, numLetter = [], 0
-                cur.append(w)
-                numLetter += len(w)
-            res.append(' '.join(cur) + ' ' * (maxWidth - numLetter - len(cur) + 1))
-            return res
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        stack = []
+        dic = {']':'[', ')':'(', '}':'{'}
+        left = set(['(', '[', '{'])
+        for c in s:
+            if c in left:
+                stack.append(c)
+            else:
+                if len(stack) == 0 or stack.pop() != dic[c]:
+                    return False
+        return stack == []
   </code>
 </pre>
 </p>

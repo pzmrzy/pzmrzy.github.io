@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>The Maze</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>There is a ball in a maze with empty spaces and walls. The ball can go through empty spaces by rolling up, down, left or right, but it won't stop rolling until hitting a wall. When the ball stops, it could choose the next direction.
+Given the ball's start position, the destination and the maze, determine whether the ball could stop at the destination.
+The maze is represented by a binary 2D array. 1 means the wall and 0 means the empty space. You may assume that the borders of the maze are all walls. The start and destination coordinates are represented by row and column indexes.</p>
+
+<b>Report:</b><br />
+<pre>
+do bfs, each step should walk until the wall.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def hasPath(self, maze, start, destination):
+            """
+            :type maze: List[List[int]]
+            :type start: List[int]
+            :type destination: List[int]
+            :rtype: bool
+            """
+            m = len(maze)
+            n = len(maze[0])
+            visit = {tuple(start)}
+            direction = [(0, 1), (0, -1), (-1, 0), (1, 0)]
+            q = [start]
+            while len(q) > 0:
+                nowx, nowy = q.pop(0)
+                if nowx == destination[0] and nowy == destination[1]:
+                    return True
+                for dx, dy in direction:
+                    tx = nowx + dx
+                    ty = nowy + dy
+                    while tx >= 0 and ty >= 0 and tx < m and ty < n and maze[tx][ty] == 0:
+                        tx += dx
+                        ty += dy
+                    tx -= dx
+                    ty -= dy
+                    if (tx, ty) not in visit:
+                        visit.add((tx, ty))
+                        q.append([tx, ty])
+            return False
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

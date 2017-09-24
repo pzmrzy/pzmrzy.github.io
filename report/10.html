@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Shortest Unsorted Continuous Subarray</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Implement regular expression matching with support for '.' and '*'.</p>
+
+<b>Report:</b><br />
+<pre>
+dp, dp[i][j] means whether s[0:i] match p[0:j], dp[ls][lp] is the result
+dp[0][0] = True, dp[0][i + 1] = p[i] == '*' and dp[0][i - 1]
+dp[i + 1][j + 1] = dp[i][j]           if p[j] == '.' or p[j] == s[i]
+                 = dp[i + 1][j - 1]   p[j] == '*' and p[j - 1] != s[i] and p[j - 1] != '.'
+                 = dp[i + 1][j + 1] = dp[i + 1][j] or dp[i][j + 1] or dp[i + 1][j - 1]  else
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def isMatch(self, s, p):
+            """
+            :type s: str
+            :type p: str
+            :rtype: bool
+            """
+            ls, lp = len(s), len(p)
+            dp = [[False] * (lp + 1) for _ in range(ls + 1)]
+            dp[0][0] = True
+            for i in range(lp):
+                dp[0][i + 1] = p[i] == '*' and dp[0][i - 1]
+            for i in range(ls):
+                for j in range(lp):
+                    if p[j] == '.' or p[j] == s[i]:
+                        dp[i + 1][j + 1] = dp[i][j]
+                    if p[j] == '*':
+                        if p[j - 1] != s[i] and p[j - 1] != '.':
+                            dp[i + 1][j + 1] = dp[i + 1][j - 1]
+                        else:
+                            dp[i + 1][j + 1] = dp[i + 1][j] or dp[i][j + 1] or dp[i + 1][j - 1]
+            return dp[ls][lp]
+
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

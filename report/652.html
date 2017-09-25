@@ -25,7 +25,7 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Subarray Sum Equals K</h3>
+        <h3 align = 'middle'>Find Duplicate Subtrees</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
@@ -34,33 +34,42 @@
         <div class="row">
           <div class="col-md-12">
             <div class="question-content">
-              <p>Given an array of integers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k.</p>
+              <p>Given a binary tree, return all duplicate subtrees. For each kind of duplicate subtrees, you only need to return the root node of any one of them.</p>
 
 <b>Report:</b><br />
 <pre>
-We record all the partial sum in a dictionary one by one, key is sum, value is number of this sum, if a new sum - k in the dictionary, there is a result.
+encode each subtree to a string by pre order, put the string to a set, if a string appear once, it is a result.
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
+    # Definition for a binary tree node.
+    # class TreeNode(object):
+    #     def __init__(self, x):
+    #         self.val = x
+    #         self.left = None
+    #         self.right = None
     from collections import defaultdict
     class Solution(object):
-        def subarraySum(self, nums, k):
+        def preorder(self, root):
+            if root is None:
+                return '#'
+            ret = "%s,%s,%s" % (root.val, self.preorder(root.left), self.preorder(root.right))
+            if ret in self.trees and self.trees[ret] == 1:
+                self.res.add(root)
+                self.trees[ret] == 2
+            self.trees[ret] += 1
+            return ret
+
+        def findDuplicateSubtrees(self, root):
             """
-            :type nums: List[int]
-            :type k: int
-            :rtype: int
+            :type root: TreeNode
+            :rtype: List[TreeNode]
             """
-            dic = defaultdict(int)
-            s = 0
-            dic[0] = 1
-            res = 0
-            for n in nums:
-                s += n
-                if s - k in dic:
-                    res += dic[s - k]
-                dic[s] += 1
-            return res
+            self.res = set()
+            self.trees = defaultdict(lambda: 0)
+            self.preorder(root)
+            return list(self.res)
   </code>
 </pre>
 </p>

@@ -25,7 +25,7 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Subarray Sum Equals K</h3>
+        <h3 align = 'middle'>Generalized Abbreviation</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
@@ -34,32 +34,33 @@
         <div class="row">
           <div class="col-md-12">
             <div class="question-content">
-              <p>Given an array of integers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k.</p>
+              <p>Write a function to generate the generalized abbreviations of a word.</p>
 
 <b>Report:</b><br />
 <pre>
-We record all the partial sum in a dictionary one by one, key is sum, value is number of this sum, if a new sum - k in the dictionary, there is a result.
+dfs, record position, current string and count, two children:
+move position, count + 1
+move position, put count to string, put current letter to string, count = 0
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
-    from collections import defaultdict
     class Solution(object):
-        def subarraySum(self, nums, k):
+        def generateAbbreviations(self, word):
             """
-            :type nums: List[int]
-            :type k: int
-            :rtype: int
+            :type word: str
+            :rtype: List[str]
             """
-            dic = defaultdict(int)
-            s = 0
-            dic[0] = 1
-            res = 0
-            for n in nums:
-                s += n
-                if s - k in dic:
-                    res += dic[s - k]
-                dic[s] += 1
+            res = []
+            q = [(0, "", 0)]
+            l = len(word)
+            while len(q) > 0:
+                pos, tmp, count = q.pop()
+                if l == pos:
+                    res.append(tmp + (str(count) if count > 0 else ""))
+                else:
+                    q.append((pos + 1, tmp, count + 1))
+                    q.append((pos + 1, tmp + (str(count) if count > 0 else "") + word[pos], 0))
             return res
   </code>
 </pre>

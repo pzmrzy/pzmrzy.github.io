@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>	Implement Magic Dictionary</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Implement a magic directory with buildDict, and search methods.<br/>
+For the method buildDict, you'll be given a list of non-repetitive words to build a dictionary.<br/>
+For the method search, you'll be given a word, and judge whether if you modify exactly one character into another character in this word, the modified word is in the dictionary you just built.
+</p>
+
+<b>Report:</b><br />
+<pre>
+for example hello, make it to _ello, h_llo, he_lo, hel_o, hell_, these are keys, and hello is value.
+when do a search, use same method to split the word, and check whether the key exsit. remember the key cannot same as the word.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class MagicDictionary(object):
+
+        def __init__(self):
+            """
+            Initialize your data structure here.
+            """
+            self.dic = collections.defaultdict(set)
+
+        def buildDict(self, dict):
+            """
+            Build a dictionary through a list of words
+            :type dict: List[str]
+            :rtype: void
+            """
+            for word in dict:
+                for i in range(len(word)):
+                    tmp = word[:i] + '_' + word[i + 1:]
+                    self.dic[tmp].add(word)
+
+        def search(self, word):
+            """
+            Returns if there is any word in the trie that equals to the given word after modifying exactly one character
+            :type word: str
+            :rtype: bool
+            """
+            for i in range(len(word)):
+                tmp = word[:i] + '_' + word[i + 1:]
+                if tmp in self.dic:
+                    if word not in self.dic[tmp] or len(self.dic[tmp]) > 1:
+                        return True
+            return False
+
+
+    # Your MagicDictionary object will be instantiated and called as such:
+    # obj = MagicDictionary()
+    # obj.buildDict(dict)
+    # param_2 = obj.search(word)
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

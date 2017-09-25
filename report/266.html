@@ -25,7 +25,7 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Subarray Sum Equals K</h3>
+        <h3 align = 'middle'>Palindrome Permutation</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
@@ -34,33 +34,29 @@
         <div class="row">
           <div class="col-md-12">
             <div class="question-content">
-              <p>Given an array of integers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k.</p>
+              <p>Given a string, determine if a permutation of the string could form a palindrome.</p>
 
 <b>Report:</b><br />
 <pre>
-We record all the partial sum in a dictionary one by one, key is sum, value is number of this sum, if a new sum - k in the dictionary, there is a result.
+if a letter has even times, pass it, only one letter can appear odd times
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
-    from collections import defaultdict
     class Solution(object):
-        def subarraySum(self, nums, k):
+        def canPermutePalindrome(self, s):
             """
-            :type nums: List[int]
-            :type k: int
-            :rtype: int
+            :type s: str
+            :rtype: bool
             """
-            dic = defaultdict(int)
-            s = 0
-            dic[0] = 1
-            res = 0
-            for n in nums:
-                s += n
-                if s - k in dic:
-                    res += dic[s - k]
-                dic[s] += 1
-            return res
+            f = False
+            for c in set(s):
+                if s.count(c) % 2 == 1:
+                    if f:
+                        return False
+                    else:
+                        f = True
+            return True
   </code>
 </pre>
 </p>

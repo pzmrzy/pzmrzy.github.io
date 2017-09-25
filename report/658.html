@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Find K Closest Elements</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Given a sorted array, two integers k and x, find the k closest elements to x in the array. The result should also be sorted in ascending order. If there is a tie, the smaller elements are always preferred.</p>
+
+<b>Report:</b><br />
+<pre>
+use binary search to find the element, use two pointer start at this position, include numbers until k. Use a deque to store the result.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    from collections import deque
+    class Solution(object):
+        def findClosestElements(self, arr, k, x):
+            """
+            :type arr: List[int]
+            :type k: int
+            :type x: int
+            :rtype: List[int]
+            """
+            tmp = bisect.bisect_left(arr, x)
+            l = len(arr)
+            if tmp == l:
+                left = right = l - 1
+            elif arr[tmp] == x:
+                left = right = tmp
+            else:
+                if tmp == 0:
+                    left = right = 0
+                else:
+                    if x - arr[tmp - 1] <= arr[tmp] - x:
+                        left = right = tmp - 1
+                    else:
+                        left = right = tmp
+            res = deque()
+            res.append(arr[left])
+
+            while len(res) < k:
+                if left - 1 < 0:
+                    right += 1
+                    res.append(arr[right])
+                    continue
+
+                if right + 1 == l:
+                    left -= 1
+                    res.appendleft(arr[left])
+                    continue
+
+                if x - arr[left - 1] <= arr[right + 1] - x:
+                    left -= 1
+                    res.appendleft(arr[left])
+                else:
+                    right += 1
+                    res.append(arr[right])
+            return list(res)
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

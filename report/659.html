@@ -25,7 +25,7 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Subarray Sum Equals K</h3>
+        <h3 align = 'middle'>Split Array into Consecutive Subsequences</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
@@ -34,33 +34,50 @@
         <div class="row">
           <div class="col-md-12">
             <div class="question-content">
-              <p>Given an array of integers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k.</p>
+              <p>You are given an integer array sorted in ascending order (may contain duplicates), you need to split them into several subsequences, where each subsequences consist of at least 3 consecutive integers. Return whether you can make such a split.</p>
 
 <b>Report:</b><br />
 <pre>
-We record all the partial sum in a dictionary one by one, key is sum, value is number of this sum, if a new sum - k in the dictionary, there is a result.
+greedy, use a dictionary to record, the lengths of subarray, end with key. alwasy append the number to the shortest subarray.
+for example [1,2,3,3,4,4,5,5]
+1 -> 1
+2 -> 2
+3 -> 3
+3 -> 1, 3
+3 -> 3, 4 -> 2
+4 -> 2, 4
+4 -> 4
+5 -> 3
+5 -> 3, 5
+if exsit a subarray, its length less than 3, return false
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
-    from collections import defaultdict
     class Solution(object):
-        def subarraySum(self, nums, k):
+        def isPossible(self, nums):
             """
             :type nums: List[int]
-            :type k: int
-            :rtype: int
+            :rtype: bool
             """
-            dic = defaultdict(int)
-            s = 0
-            dic[0] = 1
-            res = 0
+            dic = {}
             for n in nums:
-                s += n
-                if s - k in dic:
-                    res += dic[s - k]
-                dic[s] += 1
-            return res
+                if n - 1 not in dic:
+                    if n not in dic:
+                        dic[n] = [1]
+                    else:
+                        heapq.heappush(dic[n], 1)
+                else:
+                    l = heapq.heappop(dic[n - 1]) + 1
+                    if len(dic[n - 1]) == 0:
+                        del dic[n - 1]
+                    if n not in dic:
+                        dic[n] = []
+                    heapq.heappush(dic[n], l)
+            for key, arr in dic.items():
+                if len(arr) > 0 and min(arr) < 3:
+                    return False
+            return True
   </code>
 </pre>
 </p>

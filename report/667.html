@@ -25,7 +25,7 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Subarray Sum Equals K</h3>
+        <h3 align = 'middle'>Beautiful Arrangement II</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
@@ -34,32 +34,37 @@
         <div class="row">
           <div class="col-md-12">
             <div class="question-content">
-              <p>Given an array of integers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k.</p>
+              <p>Given two integers n and k, you need to construct a list which contains n different positive integers ranging from 1 to n and obeys the following requirement: <br/>
+Suppose this list is [a1, a2, a3, ... , an], then the list [|a1 - a2|, |a2 - a3|, |a3 - a4|, ... , |an-1 - an|] has exactly k distinct integers.</p>
 
 <b>Report:</b><br />
 <pre>
-We record all the partial sum in a dictionary one by one, key is sum, value is number of this sum, if a new sum - k in the dictionary, there is a result.
+use first k+1 number to permutate k difference. 1, k + 1, 2, k, ...
+for example, k = 5, 1 6 2 5 3 4, there are 5 difference. all other number append at tail by increasing order.
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
-    from collections import defaultdict
     class Solution(object):
-        def subarraySum(self, nums, k):
+        def constructArray(self, n, k):
             """
-            :type nums: List[int]
+            :type n: int
             :type k: int
-            :rtype: int
+            :rtype: List[int]
             """
-            dic = defaultdict(int)
-            s = 0
-            dic[0] = 1
-            res = 0
-            for n in nums:
-                s += n
-                if s - k in dic:
-                    res += dic[s - k]
-                dic[s] += 1
+            res = []
+            tmp = range(1, k + 2)
+            l, r = 0, k
+            flag = True
+            while l <= r:
+                if flag:
+                    res.append(tmp[l])
+                    l += 1
+                else:
+                    res.append(tmp[r])
+                    r -= 1
+                flag = not flag
+            res.extend(range(k + 2, n + 1))
             return res
   </code>
 </pre>

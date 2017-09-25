@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Perfect Rectangle</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Given N axis-aligned rectangles where N > 0, determine if they all together form an exact cover of a rectangular region.</p>
+
+<b>Report:</b><br />
+<pre>
+The right answer must satisfy two conditions:
+the large rectangle area should be equal to the sum of small rectangles
+count of all the points should be even, and that of all the four corner points should be one
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def isRectangleCover(self, rectangles):
+            """
+            :type rectangles: List[List[int]]
+            :rtype: bool
+            """
+            if len(rectangles) == 0:
+                return False
+            if len(rectangles[0]) == 0:
+                return False
+            area = 0
+            x1, y1, x2, y2 = sys.maxint, sys.maxint, -sys.maxint, -sys.maxint
+            s = set()
+            for tx1, ty1, tx2, ty2 in rectangles:
+                x1 = min(x1, tx1)
+                x2 = max(x2, tx2)
+                y1 = min(y1, ty1)
+                y2 = max(y2, ty2)
+                area += (tx2 - tx1) * (ty2 - ty1)
+                s.remove((tx1, ty1)) if (tx1, ty1) in s else s.add((tx1, ty1))
+                s.remove((tx1, ty2)) if (tx1, ty2) in s else s.add((tx1, ty2))
+                s.remove((tx2, ty1)) if (tx2, ty1) in s else s.add((tx2, ty1))
+                s.remove((tx2, ty2)) if (tx2, ty2) in s else s.add((tx2, ty2))
+            return len(s) == 4 and (x1, y1) in s and (x1, y2) in s and (x2, y1) in s and (x2, y2) in s and area == (x2 - x1) * (y2 - y1)
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

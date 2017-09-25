@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Design Hit Counter</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Design a hit counter which counts the number of hits received in the past 5 minutes.<br/>
+Each function accepts a timestamp parameter (in seconds granularity) and you may assume that calls are being made to the system in chronological order (ie, the timestamp is monotonically increasing). You may assume that the earliest timestamp starts at 1.<br/>
+It is possible that several hits arrive roughly at the same time.</p>
+
+<b>Report:</b><br />
+<pre>
+use queue to store all the hit time. and a count
+when do hit, add it to queue, and pop all the time < timestamp - 300
+when do get, pop all the time < timestamp - 300, return the count
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class HitCounter(object):
+        def __init__(self):
+            """
+            Initialize your data structure here.
+            """
+            self.queue = []
+            self.count = 0
+
+        def hit(self, timestamp):
+            """
+            Record a hit.
+            @param timestamp - The current timestamp (in seconds granularity).
+            :type timestamp: int
+            :rtype: void
+            """
+            queue = self.queue
+            queue.append(timestamp)
+            self.count += 1
+            while len(queue) > 0:
+                now = queue[0]
+                if now < timestamp - 300:
+                    del queue[0]
+                    self.count -= 1
+                else:
+                    break
+
+
+        def getHits(self, timestamp):
+            """
+            Return the number of hits in the past 5 minutes.
+            @param timestamp - The current timestamp (in seconds granularity).
+            :type timestamp: int
+            :rtype: int
+            """
+            queue = self.queue
+            while len(queue) > 0:
+                now = queue[0]
+                if now <= timestamp - 300:
+                    del queue[0]
+                    self.count -= 1
+                else:
+                    break
+            return self.count
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

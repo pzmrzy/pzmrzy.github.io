@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Walls and Gates</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>You are given a m x n 2D grid initialized with these three possible values.<br/>
+-1 - A wall or an obstacle.<br/>
+0 - A gate.<br/>
+INF - Infinity means an empty room. We use the value 231 - 1 = 2147483647 to represent INF as you may assume that the distance to a gate is less than 2147483647.<br/>
+Fill each empty room with the distance to its nearest gate. If it is impossible to reach a gate, it should be filled with INF.</p>
+
+<b>Report:</b><br />
+<pre>
+Push all gates into queue first. Then for each gate update its neighbor cells and push them to the queue.
+Repeating above steps until there is nothing left in the queue.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def wallsAndGates(self, rooms):
+            """
+            :type rooms: List[List[int]]
+            :rtype: void Do not return anything, modify rooms in-place instead.
+            """
+            m = len(rooms)
+            if m == 0:
+                return
+            n = len(rooms[0])
+            q = []
+            inf = 2147483647
+            for i in range(m):
+                for j in range(n):
+                    if rooms[i][j] == 0:
+                        q.append((i, j, 0))
+
+            while len(q) > 0:
+                i, j, d = q.pop(0)
+                if i - 1 >= 0:
+                    if rooms[i - 1][j] == inf:
+                        rooms[i - 1][j] = d + 1
+                        q.append((i - 1, j, d + 1))
+                if i + 1 < m:
+                    if rooms[i + 1][j] == inf:
+                        rooms[i + 1][j] = d + 1
+                        q.append((i + 1, j, d + 1))
+                if j - 1 >= 0:
+                    if rooms[i][j - 1] == inf:
+                        rooms[i][j - 1] = d + 1
+                        q.append((i, j - 1, d + 1))
+                if j + 1 < n:
+                    if rooms[i][j + 1] == inf:
+                        rooms[i][j + 1] = d + 1
+                        q.append((i, j + 1, d + 1))
+
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

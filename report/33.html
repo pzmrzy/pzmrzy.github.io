@@ -6,7 +6,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>pzmrzy | Leetcode Report</title>
       <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
       <link rel="stylesheet" href="../css/prism.css">
       <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
       <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
@@ -25,40 +25,49 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Valid Parentheses</h3>
+        <h3 align = 'middle'>Search in Rotated Sorted Array</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
 
 <pre>
-Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+  Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
 
-The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+  (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
+
+  You are given a target value to search. If found in the array return its index, otherwise return -1.
+
+  You may assume no duplicate exists in the array.
 </pre>
+
 <b>Report:</b><br />
 <pre>
-Use a stack to store all the left, if a right come, pop the stack and check whether they are valid. After finish all the input, the stack should be empty.
+binary search, there are 3 situation we need move left.
+left mid and target at same side: nums[l] <= nums[mid] < target
+left at left, target and mid at right:  target < nums[l] <= nums[mid]
+                                        nums[mid] < target < nums[l]
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
-class Solution(object):
-    def isValid(self, s):
-        """
-        :type s: str
-        :rtype: bool
-        """
-        stack = []
-        dic = {']':'[', ')':'(', '}':'{'}
-        left = set(['(', '[', '{'])
-        for c in s:
-            if c in left:
-                stack.append(c)
-            else:
-                if len(stack) == 0 or stack.pop() != dic[c]:
-                    return False
-        return stack == []
+    class Solution(object):
+        def search(self, nums, target):
+            """
+            :type nums: List[int]
+            :type target: int
+            :rtype: int
+            """
+            l, r = 0, len(nums) - 1
+            while l <= r:
+                mid = (l + r) / 2
+                if nums[mid] == target:
+                    return mid
+                elif nums[l] <= nums[mid] < target or target < nums[l] <= nums[mid] or nums[mid] < target < nums[l]:
+                    l = mid + 1
+                else:
+                    r = mid - 1
+            return -1
   </code>
 </pre>
 </p>

@@ -6,7 +6,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>pzmrzy | Leetcode Report</title>
       <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
       <link rel="stylesheet" href="../css/prism.css">
       <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
       <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
@@ -25,40 +25,54 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Valid Parentheses</h3>
+        <h3 align = 'middle'>Hamming Distance</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
 
 <pre>
-Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+  The Hamming distance between two integers is the number of positions at which the corresponding bits are different.
 
-The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+  Given two integers x and y, calculate the Hamming distance.
+
+  Note:
+  0 ≤ x, y < 231.
+
+  Example:
+
+  Input: x = 1, y = 4
+
+  Output: 2
+
+  Explanation:
+  1   (0 0 0 1)
+  4   (0 1 0 0)
+         ↑   ↑
+
+  The above arrows point to positions where the corresponding bits are different.
 </pre>
+
 <b>Report:</b><br />
 <pre>
-Use a stack to store all the left, if a right come, pop the stack and check whether they are valid. After finish all the input, the stack should be empty.
+First xor, then count the number of bit 1 by & 1 and >>= 1
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
-class Solution(object):
-    def isValid(self, s):
-        """
-        :type s: str
-        :rtype: bool
-        """
-        stack = []
-        dic = {']':'[', ')':'(', '}':'{'}
-        left = set(['(', '[', '{'])
-        for c in s:
-            if c in left:
-                stack.append(c)
-            else:
-                if len(stack) == 0 or stack.pop() != dic[c]:
-                    return False
-        return stack == []
+    class Solution(object):
+        def hammingDistance(self, x, y):
+            """
+            :type x: int
+            :type y: int
+            :rtype: int
+            """
+            tmp = x ^ y
+            res = 0
+            while tmp > 0:
+                res += tmp & 1
+                tmp >>= 1
+            return res
   </code>
 </pre>
 </p>

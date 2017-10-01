@@ -25,50 +25,70 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Generate Parentheses</h3>
+        <h3 align = 'middle'>Count and Say</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
 
 <pre>
-Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+  The count-and-say sequence is the sequence of integers with the first five terms as following:
 
-For example, given n = 3, a solution set is:
+  1.     1
+  2.     11
+  3.     21
+  4.     1211
+  5.     111221
+  1 is read off as "one 1" or 11.
+  11 is read off as "two 1s" or 21.
+  21 is read off as "one 2, then one 1" or 1211.
+  Given an integer n, generate the nth term of the count-and-say sequence.
 
-[
-  "((()))",
-  "(()())",
-  "(())()",
-  "()(())",
-  "()()()"
-]
+  Note: Each term of the sequence of integers will be represented as a string.
+
+  Example 1:
+
+  Input: 1
+  Output: "1"
+  Example 2:
+
+  Input: 4
+  Output: "1211"
+
 </pre>
 
 <b>Report:</b><br />
 <pre>
-dfs, record current string and how many parentheses already used
+There will only 1 2 3, in the string, use a dictionary to store all of them
+if read a number , first try to read 3 together, then 2 then 1
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
     class Solution(object):
-        def generateParenthesis(self, n):
+        def countAndSay(self, n):
             """
             :type n: int
-            :rtype: List[str]
+            :rtype: str
             """
-            res = []
-            q = [("", 0, 0)]
-            while len(q) > 0:
-                pat, l, r = q.pop()
-                if l + r == n * 2:
-                    res.append(pat)
-                if l < n:
-                    q.append( (pat + '(', l + 1, r) )
-                if l > r:
-                    q.append( (pat + ')', l, r + 1) )
-            return res
+            result = '1'
+            for _ in range(n - 1):
+                result = self.read(result)
+            return result
+
+        def read(self, s):
+            table = {'333': '33', '222': '32', '111': '31',
+                     '33': '23', '22': '22', '11': '21',
+                     '3': '13', '2': '12', '1': '11'}
+            i, n, result = 0, len(s), ''
+            while i < n:
+                if s[i:i + 3] in table:
+                    result, i = result + table[s[i:i + 3]], i + 3
+                elif s[i:i + 2] in table:
+                    result, i = result + table[s[i:i + 2]], i + 2
+                else:
+                    result, i = result + table[s[i:i + 1]], i + 1
+            return result
   </code>
 </pre>
 </p>

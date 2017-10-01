@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Design Compressed String Iterator</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-content">
+              <p>Design and implement a data structure for a compressed string iterator. It should support the following operations: next and hasNext.<br/>
+The given compressed string will be in the form of each letter followed by a positive integer representing the number of this letter existing in the original uncompressed string.<br/>
+next() - if the original string still has uncompressed characters, return the next letter; Otherwise return a white space.<br/>
+hasNext() - Judge whether there is any letter needs to be uncompressed.</p>
+<b>Report:</b><br />
+<pre>
+Let's store the tokens like [('L', 1), ('e', 2), ('t', 1), ('c', 1), ('o', 1), ('d', 1), ('e', 1)], and reverse it
+use \D\d+ to find the pattern quickly.
+when do next, pop a tuple, ct - 1, append it back.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    import re
+    class StringIterator(object):
+
+        def __init__(self, compressedString):
+            """
+            :type compressedString: str
+            """
+            self.token = []
+            for t in re.findall('\D\d+', compressedString):
+                self.token.append((t[0], int(t[1:])))
+            self.token = self.token[::-1]
+
+        def next(self):
+            """
+            :rtype: str
+            """
+            if not self.token:
+                return ' '
+            ch, ct = self.token.pop()
+            if ct > 1:
+                self.token.append((ch, ct - 1))
+            return ch
+
+        def hasNext(self):
+            """
+            :rtype: bool
+            """
+            return bool(self.token)
+
+
+    # Your StringIterator object will be instantiated and called as such:
+    # obj = StringIterator(compressedString)
+    # param_1 = obj.next()
+    # param_2 = obj.hasNext()
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

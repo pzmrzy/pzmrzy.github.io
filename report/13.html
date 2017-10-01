@@ -6,7 +6,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>pzmrzy | Leetcode Report</title>
       <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
       <link rel="stylesheet" href="../css/prism.css">
       <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
       <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
@@ -25,40 +25,54 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Valid Parentheses</h3>
+        <h3 align = 'middle'>Roman to Integer</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
 
 <pre>
-Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+Given a roman numeral, convert it to an integer.
 
-The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+Input is guaranteed to be within the range from 1 to 3999.
 </pre>
-<b>Report:</b><br />
 <pre>
-Use a stack to store all the left, if a right come, pop the stack and check whether they are valid. After finish all the input, the stack should be empty.
+for all the letter, if a letter less than next one, minute this number or, add this number, and add last number for example:
+DCXIX
+D > C : + 500
+C > X : + 100
+X > I : + 10
+I < X : - 1
+X: + 10
+= 619
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
-class Solution(object):
-    def isValid(self, s):
-        """
-        :type s: str
-        :rtype: bool
-        """
-        stack = []
-        dic = {']':'[', ')':'(', '}':'{'}
-        left = set(['(', '[', '{'])
-        for c in s:
-            if c in left:
-                stack.append(c)
-            else:
-                if len(stack) == 0 or stack.pop() != dic[c]:
-                    return False
-        return stack == []
+    class Solution(object):
+        def romanToInt(self, s):
+            """
+            :type s: str
+            :rtype: int
+            """
+            if (len(s) == 0):
+                return 0
+            dic = {}
+            dic['M'] = 1000;
+            dic['D'] = 500;
+            dic['C'] = 100;
+            dic['L'] = 50;
+            dic['X'] = 10;
+            dic['V'] = 5;
+            dic['I'] = 1;
+            res = 0
+            for i in range(len(s) - 1):
+                if (dic[s[i]] < dic[s[i + 1]]):
+                    res -= dic[s[i]]
+                else:
+                    res += dic[s[i]]
+            res += dic[s[-1]]
+            return res
   </code>
 </pre>
 </p>

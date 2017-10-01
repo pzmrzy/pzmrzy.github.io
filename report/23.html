@@ -6,7 +6,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>pzmrzy | Leetcode Report</title>
       <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
       <link rel="stylesheet" href="../css/prism.css">
       <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
       <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
@@ -25,40 +25,48 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Valid Parentheses</h3>
+        <h3 align = 'middle'>Merge k Sorted Lists</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
 
 <pre>
-Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
-
-The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
 </pre>
+
 <b>Report:</b><br />
 <pre>
-Use a stack to store all the left, if a right come, pop the stack and check whether they are valid. After finish all the input, the stack should be empty.
+Use a heapq to store all the head, key is the val of head, each time pop an element, if it isn't last node in this list, push the next node to the heapq again.
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
-class Solution(object):
-    def isValid(self, s):
-        """
-        :type s: str
-        :rtype: bool
-        """
-        stack = []
-        dic = {']':'[', ')':'(', '}':'{'}
-        left = set(['(', '[', '{'])
-        for c in s:
-            if c in left:
-                stack.append(c)
-            else:
-                if len(stack) == 0 or stack.pop() != dic[c]:
-                    return False
-        return stack == []
+    # Definition for singly-linked list.
+    # class ListNode(object):
+    #     def __init__(self, x):
+    #         self.val = x
+    #         self.next = None
+    from heapq import *
+    class Solution(object):
+        def mergeKLists(self, lists):
+            """
+            :type lists: List[ListNode]
+            :rtype: ListNode
+            """
+            head = p = ListNode(-1)
+            heap = []
+            for i in lists:
+                if i:
+                    heappush(heap,(i.val,i))
+            while heap:
+                small = heappop(heap)[1]
+                p.next = small
+                if small.next:
+                    heappush(heap,(small.next.val,small.next))
+                p = small
+                p.next = None
+            return head.next
   </code>
 </pre>
 </p>

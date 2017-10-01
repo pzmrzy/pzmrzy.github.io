@@ -6,7 +6,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>pzmrzy | Leetcode Report</title>
       <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
       <link rel="stylesheet" href="../css/prism.css">
       <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
       <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
@@ -25,40 +25,47 @@
 			</div>
       <br/><br/>
       <div class="container main-container">
-        <h3 align = 'middle'>Valid Parentheses</h3>
+        <h3 align = 'middle'>Remove Duplicates from Sorted Array</h3>
         <div ng-app="app">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
 
 <pre>
-Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+  Given a sorted array, remove the duplicates in place such that each element appear only once and return the new length.
 
-The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+  Do not allocate extra space for another array, you must do this in place with constant memory.
+
+  For example,
+  Given input array nums = [1,1,2],
+
+  Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively. It doesn't matter what you leave beyond the new length.
 </pre>
+
 <b>Report:</b><br />
 <pre>
-Use a stack to store all the left, if a right come, pop the stack and check whether they are valid. After finish all the input, the stack should be empty.
+Use a pointer to the position of different number, if a new number is diffrent, copy to here, and move the pointer
+1 #1 2 2 3   1 2 #2 2 3    1 2 2 #2 3   1 2 3 2 #3
+  |              |             |              |
 </pre>
 <b>Code:</b><br />
 <pre>
   <code class="language-python">
-class Solution(object):
-    def isValid(self, s):
-        """
-        :type s: str
-        :rtype: bool
-        """
-        stack = []
-        dic = {']':'[', ')':'(', '}':'{'}
-        left = set(['(', '[', '{'])
-        for c in s:
-            if c in left:
-                stack.append(c)
-            else:
-                if len(stack) == 0 or stack.pop() != dic[c]:
-                    return False
-        return stack == []
+    class Solution(object):
+        def removeDuplicates(self, nums):
+            """
+            :type nums: List[int]
+            :rtype: int
+            """
+            l = len(nums)
+            now = 1
+            if l < 2:
+                return l
+            for i in range(1, l):
+                if nums[i] != nums[i - 1]:
+                    nums[now] = nums[i]
+                    now += 1
+            return now
   </code>
 </pre>
 </p>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Multiply Strings</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+<pre>
+  Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2.
+
+  Note:
+
+  The length of both num1 and num2 is < 110.
+  Both num1 and num2 contains only digits 0-9.
+  Both num1 and num2 does not contain any leading zero.
+  You must not use any built-in BigInteger library or convert the inputs to integer directly.
+</pre>
+
+<b>Report:</b><br />
+<pre>
+Assume num1 has length l1, num2 has length l2. the result length must be l1 + l2 or l1 + l2 - 1. So init the result array with length l1 + l2
+for the number in num1 at i, and number in num2 at j, add their product to res[l1 + l2 + 1]
+finally do make each position mod 10 and add carry to next position.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def multiply(self, num1, num2):
+            """
+            :type num1: str
+            :type num2: str
+            :rtype: str
+            """
+            l1, l2 = len(num1), len(num2)
+            res = [0] * (l1 + l2)
+            for i, n1 in enumerate(num1):
+                for j, n2 in enumerate(num2):
+                    res[i + j + 1] += int(n1) * int(n2)
+            for i in range(l1 + l2 - 1, 0, -1):
+                res[i - 1] += res[i] / 10
+                res[i] %= 10
+            ans = ''.join(map(str, res)).lstrip('0')
+            return '0' if ans == "" else ans
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

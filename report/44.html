@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Wildcard Matching</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+<pre>
+  Implement wildcard pattern matching with support for '?' and '*'.
+
+  '?' Matches any single character.
+  '*' Matches any sequence of characters (including the empty sequence).
+
+  The matching should cover the entire input string (not partial).
+
+  The function prototype should be:
+  bool isMatch(const char *s, const char *p)
+
+  Some examples:
+  isMatch("aa","a") → false
+  isMatch("aa","aa") → true
+  isMatch("aaa","aa") → false
+  isMatch("aa", "*") → true
+  isMatch("aa", "a*") → true
+  isMatch("ab", "?*") → true
+  isMatch("aab", "c*a*b") → false
+</pre>
+
+<b>Report:</b><br />
+<pre>
+dp, like lc10.
+dp[0][0] = True
+dp[0][j + 1] = dp[0][j]           if p[j] = *
+dp[i + 1][j + 1] = dp[i][j]       if s[i] == p[j] or p[j] == '?':
+                 = dp[i + 1][j] or dp[i][j + 1]       if p[j] == '*':
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def isMatch(self, s, p):
+            """
+            :type s: str
+            :type p: str
+            :rtype: bool
+            """
+            if len(p.replace("*", '')) > len(s):
+                return False
+            ls = len(s)
+            lp = len(p)
+            data = [[False] * (lp + 1) for _ in range(ls + 1)]
+            data[0][0] = True
+            for j in range(0, lp):
+                if p[j] == '*':
+                    data[0][j + 1] = data[0][j]
+            for i in range(0, ls):
+                for j in range(0, lp):
+                    if s[i] == p[j] or p[j] == '?':
+                        data[i + 1][j + 1] = data[i][j]
+                    if p[j] == '*':
+                        data[i + 1][j + 1] = data[i + 1][j] or data[i][j + 1]
+            return data[ls][lp]
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

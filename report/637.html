@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Average of Levels in Binary Tree</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+<pre>
+Given a non-empty binary tree, return the average value of the nodes on each level in the form of an array.
+
+Example 1:
+Input:
+    3
+   / \
+  9  20
+    /  \
+   15   7
+Output: [3, 14.5, 11]
+Explanation:
+The average value of nodes on level 0 is 3,  on level 1 is 14.5, and on level 2 is 11. Hence return [3, 14.5, 11].
+Note:
+The range of node's value is in the range of 32-bit signed integer.
+</pre>
+
+<b>Report:</b><br />
+<pre>
+When do traversal, record the level in a dictionary. After that get the average of each level.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    # Definition for a binary tree node.
+    # class TreeNode(object):
+    #     def __init__(self, x):
+    #         self.val = x
+    #         self.left = None
+    #         self.right = None
+
+    class Solution(object):
+        def preorder(self, root, level):
+            if root is None:
+                return
+            self.dic[level].append(root.val)
+            self.preorder(root.left, level + 1)
+            self.preorder(root.right, level + 1)
+
+        def averageOfLevels(self, root):
+            """
+            :type root: TreeNode
+            :rtype: List[float]
+            """
+            self.dic = collections.defaultdict(lambda: [])
+            self.preorder(root, 0)
+            return [float(sum(self.dic[i])) / len(self.dic[i]) for i in sorted(self.dic.keys())]
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

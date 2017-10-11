@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Simplify Path</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+<pre>
+  Given an absolute path for a file (Unix-style), simplify it.
+
+  For example,
+  path = "/home/", => "/home"
+  path = "/a/./b/../../c/", => "/c"
+  click to show corner cases.
+
+  Corner Cases:
+  Did you consider the case where path = "/../"?
+  In this case, you should return "/".
+  Another corner case is the path might contain multiple slashes '/' together, such as "/home//foo/".
+  In this case, you should ignore redundant slashes and return "/home/foo".
+</pre>
+
+<b>Report:</b><br />
+<pre>
+Use stack. First split the path by /, if a part is . or empty, continue, if is '..', pop, else append
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+class Solution(object):
+    def simplifyPath(self, path):
+        """
+        :type path: str
+        :rtype: str
+        """
+        res = []
+        for it in path.rstrip('/').split('/'):
+            if it == '.' or it == "":
+                continue
+            elif it == "..":
+                if len(res) > 0:
+                    res.pop()
+            else:
+                res.append(it)
+        return '/' + '/'.join(res)
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

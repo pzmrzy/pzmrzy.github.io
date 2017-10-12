@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Longest Continuous Increasing Subsequence</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+<pre>
+  Given an unsorted array of integers, find the length of longest continuous increasing subsequence.
+
+  Example 1:
+  Input: [1,3,5,4,7]
+  Output: 3
+  Explanation: The longest continuous increasing subsequence is [1,3,5], its length is 3.
+  Even though [1,3,5,7] is also an increasing subsequence, it's not a continuous one where 5 and 7 are separated by 4.
+  Example 2:
+  Input: [2,2,2,2,2]
+  Output: 1
+  Explanation: The longest continuous increasing subsequence is [2], its length is 1.
+  Note: Length of the array will not exceed 10,000.
+</pre>
+
+<b>Report:</b><br />
+<pre>
+record current length, start is one, for each number, if it large than previous one, length+1, else length = 1 and update result
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def findLengthOfLCIS(self, nums):
+            """
+            :type nums: List[int]
+            :rtype: int
+            """
+            res = 0
+            n = len(nums)
+            if n == 0:
+                return 0
+            now = 1
+            for i in range(1, n):
+                if nums[i] > nums[i - 1]:
+                    now += 1
+                else:
+                    res = max(res, now)
+                    now = 1
+            return max(res, now)
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

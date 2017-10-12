@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Total Hamming Distance</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+<pre>
+  The Hamming distance between two integers is the number of positions at which the corresponding bits are different.
+
+  Now your job is to find the total Hamming distance between all pairs of the given numbers.
+
+  Example:
+  Input: 4, 14, 2
+
+  Output: 6
+
+  Explanation: In binary representation, the 4 is 0100, 14 is 1110, and 2 is 0010 (just
+  showing the four bits relevant in this case). So the answer will be:
+  HammingDistance(4, 14) + HammingDistance(4, 2) + HammingDistance(14, 2) = 2 + 2 + 2 = 6.
+  Note:
+  Elements of the given array are in the range of 0 to 10^9
+  Length of the array will not exceed 10^4.
+</pre>
+
+<b>Report:</b><br />
+<pre>
+for each position, check how many numbers(t) at this position is 1.
+total distance is n*(n-t) at thsi position.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def totalHammingDistance(self, nums):
+            """
+            :type nums: List[int]
+            :rtype: int
+            """
+            res = 0
+            l = len(nums)
+            for i in range(32):
+                tmp = 0
+                for n in nums:
+                    tmp += (n >> i) & 1
+                res += tmp * (l - tmp)
+            return res
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

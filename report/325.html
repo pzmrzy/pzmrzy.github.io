@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Maximum Size Subarray Sum Equals k</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+<pre>
+  Given an array nums and a target value k, find the maximum length of a subarray that sums to k. If there isn't one, return 0 instead.
+
+  Note:
+  The sum of the entire nums array is guaranteed to fit within the 32-bit signed integer range.
+
+  Example 1:
+  Given nums = [1, -1, 5, -2, 3], k = 3,
+  return 4. (because the subarray [1, -1, 5, -2] sums to 3 and is the longest)
+
+  Example 2:
+  Given nums = [-2, -1, 2, 1], k = 1,
+  return 2. (because the subarray [-1, 2] sums to 1 and is the longest)
+
+  Follow Up:
+  Can you do it in O(n) time?
+</pre>
+
+<b>Report:</b><br />
+<pre>
+partial sum, and store the leftmost position of each sum, for a new sum, to check whether the different with k in the dictionary.
+if yes, update the result, if the new sum not in the dictionary, put it into dictionary.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    from collections import defaultdict
+    class Solution(object):
+        def maxSubArrayLen(self, nums, k):
+            """
+            :type nums: List[int]
+            :type k: int
+            :rtype: int
+            """
+            dic = defaultdict(int)
+            tot = 0
+            dic[0] = 0
+            res = 0
+            for i, n in enumerate(nums):
+                tot += n
+                if tot - k in dic:
+                    res = max(res, i - dic[tot - k] + 1)
+                if tot not in dic:
+                    dic[tot] = i + 1
+            return res
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

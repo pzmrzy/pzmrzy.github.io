@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Exclusive Time of Functions</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+<pre>
+Given the running logs of n functions that are executed in a nonpreemptive single threaded CPU, find the exclusive time of these functions.
+
+Each function has a unique id, start from 0 to n-1. A function may be called recursively or by another function.
+
+A log is a string has this format : function_id:start_or_end:timestamp. For example, "0:start:0" means function 0 starts from the very beginning of time 0. "0:end:0" means function 0 ends to the very end of time 0.
+
+Exclusive time of a function is defined as the time spent within this function, the time spent by calling other functions should not be considered as this function's exclusive time. You should return the exclusive time of each function sorted by their function id.
+
+Example 1:
+Input:
+n = 2
+logs =
+["0:start:0",
+ "1:start:2",
+ "1:end:5",
+ "0:end:6"]
+Output:[3, 4]
+Explanation:
+Function 0 starts at time 0, then it executes 2 units of time and reaches the end of time 1.
+Now function 0 calls function 1, function 1 starts at time 2, executes 4 units of time and end at time 5.
+Function 0 is running again at time 6, and also end at the time 6, thus executes 1 unit of time.
+So function 0 totally execute 2 + 1 = 3 units of time, and function 1 totally execute 4 units of time.
+Note:
+Input logs will be sorted by timestamp, NOT log id.
+Your output should be sorted by function id, which means the 0th element of your output corresponds to the exclusive time of function 0.
+Two functions won't start or end at the same time.
+Functions could be called recursively, and will always end.
+1 <= n <= 100
+</pre>
+
+<b>Report:</b><br />
+<pre>
+use a stack, if type is start, update previous thread's time, and push this into stack,
+if type is end, pop stack, and update this thread's time
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def exclusiveTime(self, n, logs):
+            """
+            :type n: int
+            :type logs: List[str]
+            :rtype: List[int]
+            """
+            res = [0] * n
+            stack = []
+            pretime = 0
+            for log in logs:
+                fun, types, ts = log.split(':')
+                fun, ts = int(fun), int(ts)
+                if types == "start":
+                    if stack:
+                        res[stack[-1]] += ts - pretime
+                    stack.append(fun)
+                    pretime = ts
+                else:
+                    res[stack.pop()] += ts - pretime + 1
+                    pretime = ts + 1
+            return res
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

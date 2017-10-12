@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Valid Palindrome II</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+<pre>
+  Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
+
+  Example 1:
+  Input: "aba"
+  Output: True
+  Example 2:
+  Input: "abca"
+  Output: True
+  Explanation: You could delete the character 'c'.
+  Note:
+  The string will only contain lowercase characters a-z. The maximum length of the string is 50000.
+</pre>
+
+<b>Report:</b><br />
+<pre>
+check from two end, when left != right, delete one of them, to check whether is valid
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+    class Solution(object):
+        def check(self, s, l, r, flag):
+            while l <= r:
+                if s[l] == s[r]:
+                    l += 1
+                    r -= 1
+                else:
+                    if flag:
+                        return self.check(s, l + 1, r, False) or self.check(s, l, r - 1, False)
+                    else:
+                        return False
+            return True
+
+        def validPalindrome(self, s):
+            """
+            :type s: str
+            :rtype: bool
+            """
+            return self.check(s, 0, len(s) - 1, True)
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

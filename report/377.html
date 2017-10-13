@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Combination Sum IV</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+<pre>
+Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add up to a positive integer target.
+
+Example:
+
+nums = [1, 2, 3]
+target = 4
+
+The possible combination ways are:
+(1, 1, 1, 1)
+(1, 1, 2)
+(1, 2, 1)
+(1, 3)
+(2, 1, 1)
+(2, 2)
+(3, 1)
+
+Note that different sequences are counted as different combinations.
+
+Therefore the output is 7.
+Follow up:
+What if negative numbers are allowed in the given array?
+How does it change the problem?
+What limitation we need to add to the question to allow negative numbers?
+</pre>
+
+<b>Report:</b><br />
+<pre>
+dp, dp[i] = sum(dp[i - k]) for k in num
+dp[target] is the answer
+dp[0] = 1
+dp[min] = 1
+dp[1~min] = 0
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+class Solution(object):
+    def f(self, i):
+        res = 0
+        for k in self.nums:
+            if i - k < 0:
+                continue
+            if self.data[i-k] == -1:
+                self.f(i-k)
+            res += self.data[i-k]
+        self.data[i] = res
+        return res
+
+    def combinationSum4(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        self.nums = []
+        for i in nums:
+            if i <= target:
+                self.nums.append(i)
+        if len(self.nums) == 0:
+            return 0
+        self.minn = min(nums)
+        self.data = [-1 for i in range(target+1)]
+        self.data[self.minn] = 1
+        for i in range(self.minn):
+            self.data[i] = 0
+        self.data[0] = 1
+        return self.f(target)
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

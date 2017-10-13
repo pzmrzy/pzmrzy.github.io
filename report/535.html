@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Encode and Decode TinyURL</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+<pre>
+TinyURL is a URL shortening service where you enter a URL such as https://leetcode.com/problems/design-tinyurl and it returns a short URL such as http://tinyurl.com/4e9iAk.
+
+Design the encode and decode methods for the TinyURL service. There is no restriction on how your encode/decode algorithm should work. You just need to ensure that a URL can be encoded to a tiny URL and the tiny URL can be decoded to the original URL.
+</pre>
+
+<b>Report:</b><br />
+<pre>
+one method is generate random string with same length
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+class Codec:
+    def __init__(self):
+        self.dic = {}
+        self.str = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    def genurl(self):
+        while True:
+            tmp = ""
+            for i in range(6):
+                tmp += self.str[random.randint(0, 61)]
+            if tmp not in self.dic:
+                return tmp
+
+    def encode(self, longUrl):
+        """Encodes a URL to a shortened URL.
+
+        :type longUrl: str
+        :rtype: str
+        """
+        url = self.genurl()
+        self.dic[url] = longUrl
+        return "http://tinyurl.com/%s" % url
+
+    def decode(self, shortUrl):
+        """Decodes a shortened URL to its original URL.
+
+        :type shortUrl: str
+        :rtype: str
+        """
+        return self.dic[shortUrl.split('/')[-1]]
+
+
+# Your Codec object will be instantiated and called as such:
+# codec = Codec()
+# codec.decode(codec.encode(url))
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

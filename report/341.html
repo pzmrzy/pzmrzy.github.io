@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Flatten Nested List Iterator</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+<pre>
+Given a nested list of integers, implement an iterator to flatten it.
+
+Each element is either an integer, or a list -- whose elements may also be integers or other lists.
+
+Example 1:
+Given the list [[1,1],2,[1,1]],
+
+By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,1,2,1,1].
+
+Example 2:
+Given the list [1,[4,[6]]],
+
+By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,4,6].
+</pre>
+
+<b>Report:</b><br />
+<pre>
+I keep the current progress in a stack. My hasNext tries to find an integer. My next returns it and moves on. I call hasNext in next because hasNext is optional. Some user of the iterator might call only next and never hasNext, e.g., if they know how many integers are in the structure or if they want to handle the ending with exception handling.
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+# """
+# This is the interface that allows for creating nested lists.
+# You should not implement it, or speculate about its implementation
+# """
+#class NestedInteger(object):
+#    def isInteger(self):
+#        """
+#        @return True if this NestedInteger holds a single integer, rather than a nested list.
+#        :rtype bool
+#        """
+#
+#    def getInteger(self):
+#        """
+#        @return the single integer that this NestedInteger holds, if it holds a single integer
+#        Return None if this NestedInteger holds a nested list
+#        :rtype int
+#        """
+#
+#    def getList(self):
+#        """
+#        @return the nested list that this NestedInteger holds, if it holds a nested list
+#        Return None if this NestedInteger holds a single integer
+#        :rtype List[NestedInteger]
+#        """
+
+class NestedIterator(object):
+
+    def __init__(self, nestedList):
+        """
+        Initialize your data structure here.
+        :type nestedList: List[NestedInteger]
+        """
+        self.stack = [[nestedList, 0]]
+
+    def next(self):
+        """
+        :rtype: int
+        """
+        self.hasNext()
+        nestedList, i = self.stack[-1]
+        self.stack[-1][1] += 1
+        return nestedList[i].getInteger()
+
+    def hasNext(self):
+        """
+        :rtype: bool
+        """
+        s = self.stack
+        while s:
+            nestedList, i = s[-1]
+            if i == len(nestedList):
+                s.pop()
+            else:
+                x = nestedList[i]
+                if x.isInteger():
+                    return True
+                s[-1][1] += 1
+                s.append([x.getList(), 0])
+        return False
+
+# Your NestedIterator object will be instantiated and called as such:
+# i, v = NestedIterator(nestedList), []
+# while i.hasNext(): v.append(i.next())
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

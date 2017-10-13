@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Increasing Triplet Subsequence</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+<pre>
+Given an unsorted array return whether an increasing subsequence of length 3 exists or not in the array.
+
+Formally the function should:
+Return true if there exists i, j, k
+such that arr[i] < arr[j] < arr[k] given 0 ≤ i < j < k ≤ n-1 else return false.
+Your algorithm should run in O(n) time complexity and O(1) space complexity.
+
+Examples:
+Given [1, 2, 3, 4, 5],
+return true.
+
+Given [5, 4, 3, 2, 1],
+return false.
+</pre>
+
+<b>Report:</b><br />
+<pre>
+Start with the maximum numbers for the first and second element. Then:
+(1) Find the first smallest number in the 3 subsequence
+(2) Find the second one greater than the first element, reset the first one if it's smaller
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+import sys
+class Solution(object):
+    def increasingTriplet(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        first = second = sys.maxint
+        for n in nums:
+            if n <= first:
+                first = n
+            elif n <= second:
+                second = n
+            else:
+                return True
+        return False
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>

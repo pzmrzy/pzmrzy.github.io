@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name ="viewport" content ="width=device-width,initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>pzmrzy | Leetcode Report</title>
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="../css/prism.css">
+      <script type="text/javascript" src="../bootstrap/js/jquery.js"></script>
+      <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/prism.js"></script>
+    </head>
+    <body>
+			<div>
+				<nav class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<div class="nav navbar-nav"><li><a href="../index.html" id="viewall">Home</a></li></div>
+							<div class="nav navbar-nav"><li><a href="../leet.html" id="viewall">Leetcode</a></li></div>
+						</div>
+					</div>
+				</nav>
+			</div>
+      <br/><br/>
+      <div class="container main-container">
+        <h3 align = 'middle'>Remove Invalid Parentheses</h3>
+        <div ng-app="app">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+<pre>
+Remove the minimum number of invalid parentheses in order to make the input string valid. Return all possible results.
+
+Note: The input string may contain letters other than the parentheses ( and ).
+
+Examples:
+"()())()" -> ["()()()", "(())()"]
+"(a)())()" -> ["(a)()()", "(a())()"]
+")(" -> [""]
+</pre>
+
+<b>Report:</b><br />
+<pre>
+Key Points:
+
+Generate unique answer once and only once, do not rely on Set.
+Do not need preprocess.
+Runtime 3 ms.
+Explanation:
+We all know how to check a string of parentheses is valid using a stack. Or even simpler use a counter.
+The counter will increase when it is ‘(‘ and decrease when it is ‘)’. Whenever the counter is negative, we have more ‘)’ than ‘(‘ in the prefix.
+
+To make the prefix valid, we need to remove a ‘)’. The problem is: which one? The answer is any one in the prefix. However, if we remove any one, we will generate duplicate results, for example: s = ()), we can remove s[1] or s[2] but the result is the same (). Thus, we restrict ourself to remove the first ) in a series of concecutive )s.
+
+After the removal, the prefix is then valid. We then call the function recursively to solve the rest of the string. However, we need to keep another information: the last removal position. If we do not have this position, we will generate duplicate by removing two ‘)’ in two steps only with a different order.
+For this, we keep tracking the last removal position and only remove ‘)’ after that.
+
+Now one may ask. What about ‘(‘? What if s = ‘(()(()’ in which we need remove ‘(‘?
+The answer is: do the same from right to left.
+However a cleverer idea is: reverse the string and reuse the code!
+</pre>
+<b>Code:</b><br />
+<pre>
+  <code class="language-python">
+class Solution(object):
+    def removeInvalidParentheses(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        self.res = []
+        self.remove(s, 0, 0, '(', ')')
+        return self.res
+
+    def remove(self, s, left, right, a, b):
+        count = 0
+        for i in range(right, len(s)):
+            if s[i] == a:
+                count += 1
+            if s[i] == b:
+                count -= 1
+            if count >= 0:
+                continue
+            else:
+                for j in range(left, i + 1):
+                    if s[j] == b and (j == left or s[j - 1] != b):
+                        self.remove(s[:j] + s[j + 1:], j, i, a, b)
+                return
+
+        if count == 0 and a == '(':
+            self.res.append(s)
+        elif count == 0 and a == ')':
+            self.res.append(s[::-1])
+        elif a == '(':
+            self.helper(s[::-1], 0, 0, b, a, output)
+  </code>
+</pre>
+</p>
+</p></div></div></div></div></div></div>
+    </body>
+</html>
